@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paradise Gen — Instant Account Delivery</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
 <style>
 :root {
   --bg: #060608;
@@ -20,876 +19,196 @@
   --muted2: #444455;
   --border: rgba(255,255,255,0.06);
 }
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
+body, #adminPanel {
   font-family: 'Rajdhani', sans-serif;
   background: var(--bg);
   color: var(--white);
-  overflow-x: hidden;
-  cursor: default;
 }
-
-/* ─── NOISE OVERLAY ─── */
-body::after {
-  content: "";
+#adminModal {
   position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.5;
-}
-
-/* ─── AMBIENT BG ─── */
-.ambient {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-.ambient-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-}
-.blob1 {
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(232,25,44,0.12), transparent 70%);
-  top: -200px; left: -200px;
-  animation: drift1 18s ease-in-out infinite alternate;
-}
-.blob2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(180,10,30,0.08), transparent 70%);
-  bottom: 0; right: -100px;
-  animation: drift2 22s ease-in-out infinite alternate;
-}
-@keyframes drift1 { to { transform: translate(80px, 100px); } }
-@keyframes drift2 { to { transform: translate(-60px, -80px); } }
-
-/* ─── NAV ─── */
-nav {
-  position: fixed;
-  top: 0; width: 100%;
-  z-index: 100;
-  padding: 0 60px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(6,6,8,0.7);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
-  letter-spacing: 3px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.nav-logo .dot {
-  width: 8px; height: 8px;
-  background: var(--red);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--red);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
-}
-
-.nav-links { display: flex; align-items: center; gap: 36px; }
-.nav-links a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--white); }
-.nav-links .nav-cta {
-  color: var(--red);
-  border: 1px solid var(--red-border);
-  padding: 6px 18px;
-  border-radius: 2px;
-}
-.nav-links .nav-cta:hover {
-  background: var(--red-glow);
-  color: var(--white);
-}
-
-/* ─── HERO ─── */
-.hero {
-  position: relative;
-  z-index: 1;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  left: 0; top: 0; width: 100%; height: 100%;
+  background: rgba(6,6,8,0.95);
+  z-index: 10000;
+  display: none;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 0 20px;
-  overflow: hidden;
 }
-
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(232,25,44,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,25,44,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
-}
-
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 4px;
-  color: var(--red);
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s 0.2s forwards;
-}
-
-.hero-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 14vw, 12rem);
-  line-height: 0.9;
-  letter-spacing: 4px;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 0.9s 0.4s forwards;
-}
-.hero-title .red { color: var(--red); }
-.hero-title .stroke {
-  -webkit-text-stroke: 1.5px rgba(255,255,255,0.15);
-  color: transparent;
-}
-
-.hero-sub {
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 3px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-top: 20px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s 0.6s forwards;
-}
-
-.hero-cta-group {
-  display: flex;
-  gap: 16px;
-  margin-top: 48px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s 0.8s forwards;
-}
-
-.btn-primary {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 14px 36px;
-  background: var(--red);
-  color: #fff;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.btn-primary:hover {
-  background: #ff2233;
-  box-shadow: 0 0 30px rgba(232,25,44,0.4);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 14px 36px;
-  background: transparent;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-}
-.btn-secondary:hover {
-  border-color: var(--muted2);
-  color: var(--white);
-}
-
-.hero-stats {
-  position: absolute;
-  bottom: 60px;
-  display: flex;
-  gap: 60px;
-  opacity: 0;
-  animation: fadeUp 0.8s 1s forwards;
-}
-.stat-item { text-align: center; }
-.stat-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  color: var(--red);
-  letter-spacing: 2px;
-}
-.stat-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 20px;
-  right: 60px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  color: var(--muted2);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.scroll-hint::before {
-  content: "";
-  display: block;
-  width: 30px;
-  height: 1px;
-  background: var(--muted2);
-}
-
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── DIVIDER ─── */
-.divider {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 0 60px;
-  margin: 0 auto;
-  max-width: 1200px;
-}
-.divider-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
-}
-.divider-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 3px;
-  color: var(--muted2);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-/* ─── SECTION ─── */
-.section {
-  position: relative;
-  z-index: 1;
-  padding: 100px 60px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 4px;
-  color: var(--red);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.section-label::before {
-  content: "";
-  display: block;
-  width: 20px;
-  height: 1px;
-  background: var(--red);
-}
-
-.section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  letter-spacing: 3px;
-  line-height: 1;
-  margin-bottom: 16px;
-}
-
-.section-desc {
-  color: var(--muted);
-  font-size: 1rem;
-  font-weight: 400;
-  max-width: 500px;
-  line-height: 1.7;
-  letter-spacing: 0.5px;
-}
-
-/* ─── PRODUCTS ─── */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 24px;
-  margin-top: 60px;
-}
-
-.product-card {
-  position: relative;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 36px;
-  overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: default;
-}
-
-.product-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--red), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.product-card:hover::before { opacity: 1; }
-
-.product-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 50% at 50% 120%, var(--red-glow), transparent);
-  opacity: 0;
-  transition: opacity 0.35s;
-  pointer-events: none;
-}
-.product-card:hover::after { opacity: 1; }
-
-.product-card:hover {
-  border-color: var(--red-border);
-  transform: translateY(-6px);
-}
-
-.product-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 2px;
-  margin-bottom: 24px;
-}
-.badge-green {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  border: 1px solid rgba(16,185,129,0.2);
-}
-.badge-red {
-  background: rgba(232,25,44,0.1);
-  color: var(--red);
+#adminModal.active { display: flex; }
+#adminPanel {
+  background: var(--surface2);
+  border-radius: 10px;
+  box-shadow: 0 0 50px #000a;
+  padding: 48px 36px 24px 36px;
+  min-width: 480px; 
+  max-width: 96vw;
   border: 1px solid var(--red-border);
+  position: relative;
 }
-.badge-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: currentColor;
-  animation: pulse 2s infinite;
-}
-
-.product-name {
+#adminPanel h2 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-}
-
-.product-description {
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.6;
-  letter-spacing: 0.3px;
-  margin-bottom: 28px;
-}
-
-.product-features {
-  list-style: none;
-  margin-bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.product-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: rgba(240,240,240,0.7);
-  letter-spacing: 0.5px;
-}
-.feat-icon {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  background: rgba(232,25,44,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.feat-icon svg { width: 8px; height: 8px; }
-
-.product-price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-.product-price {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 3.5rem;
   color: var(--red);
   letter-spacing: 2px;
-  line-height: 1;
-}
-.product-price-unit {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--muted);
-  letter-spacing: 2px;
-}
-
-.buy-btn {
-  width: 100%;
-  padding: 15px;
-  background: transparent;
-  border: 1px solid var(--red-border);
-  color: var(--white);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  display: inline-block;
-  box-sizing: border-box;
-  text-decoration: none;
-}
-.buy-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--red);
-  transform: translateX(-101%);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.buy-btn span { position: relative; z-index: 1; }
-.buy-btn:hover::before { transform: translateX(0); }
-.buy-btn:hover { border-color: var(--red); }
-.buy-btn:active { transform: scale(0.98); }
-
-/* ─── HOW IT WORKS ─── */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  margin-top: 60px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.step {
-  background: var(--surface);
-  padding: 40px 36px;
-  position: relative;
-  transition: background 0.3s;
-}
-.step:hover { background: var(--surface2); }
-.step-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem;
-  color: var(--red-border);
-  line-height: 1;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
-}
-.step-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
-.step-desc {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.6;
-  letter-spacing: 0.3px;
-}
-
-/* ─── FEATURES BAR ─── */
-.features-bar {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  overflow: hidden;
-}
-.features-track {
-  display: flex;
-  gap: 0;
-  animation: marquee 20s linear infinite;
-  white-space: nowrap;
-  width: max-content;
-}
-.features-track:hover { animation-play-state: paused; }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.feature-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 40px;
-  border-right: 1px solid var(--border);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-.feature-pill-dot {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--red);
-  flex-shrink: 0;
-}
-
-/* ─── FAQ ─── */
-.faq-list {
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.faq-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-  transition: border-color 0.2s;
-}
-.faq-item:hover { border-color: var(--muted2); }
-.faq-item.open { border-color: var(--red-border); }
-.faq-q {
-  padding: 20px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  user-select: none;
-}
-.faq-q::after {
-  content: "+";
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.2rem;
-  color: var(--red);
-  transition: transform 0.3s;
-}
-.faq-item.open .faq-q::after { transform: rotate(45deg); }
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.7;
-  letter-spacing: 0.3px;
-}
-.faq-a-inner { padding: 0 28px 20px; }
-.faq-item.open .faq-a { max-height: 200px; }
-
-/* ─── FOOTER ─── */
-footer {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid var(--border);
-  padding: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 3px;
-}
-.footer-logo span { color: var(--red); }
-.footer-copy {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  color: var(--muted2);
-  text-align: center;
-}
-.footer-links { display: flex; gap: 24px; }
-.footer-links a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  color: var(--muted2);
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-.footer-links a:hover { color: var(--white); }
-
-/* ─── MODAL ─── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(6,6,8,0.92);
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  backdrop-filter: blur(8px);
-}
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--red-border);
-  border-radius: 4px;
-  padding: 48px;
-  width: 100%;
-  max-width: 480px;
-  position: relative;
-  transform: translateY(20px) scale(0.97);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.modal-overlay.active .modal {
-  transform: translateY(0) scale(1);
-}
-.modal-close {
-  position: absolute;
-  top: 16px; right: 20px;
-  background: none; border: none;
-  color: var(--muted); font-size: 1.4rem;
-  cursor: pointer; line-height: 1;
-  transition: color 0.2s;
-  font-family: 'JetBrains Mono', monospace;
-}
-.modal-close:hover { color: var(--white); }
-.modal-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 3px;
-  color: var(--red);
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.modal-title {
-  font-family: 'Bebas Neue', sans-serif;
   font-size: 2.2rem;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
+  margin: 0 0 20px;
 }
-.modal-price {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 3rem;
-  color: var(--red);
-  letter-spacing: 2px;
-  margin-bottom: 32px;
-}
-.modal-field {
-  margin-bottom: 20px;
-}
-.modal-label {
-  display: block;
+#adminPanel label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 8px;
+  color: var(--muted2);
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 6px;
 }
-.modal-input {
+#adminPanel input[type="text"], #adminPanel input[type="password"], #adminPanel textarea {
   width: 100%;
-  padding: 12px 16px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 2px;
   color: var(--white);
+  padding: 10px;
+  margin-bottom: 10px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
   outline: none;
-  transition: border-color 0.2s;
+  resize: none;
 }
-.modal-input:focus { border-color: var(--red-border); }
-.modal-input::placeholder { color: var(--muted2); }
-#card-element {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  transition: border-color 0.2s;
-  margin-bottom: 8px;
-}
-#card-element.StripeElement--focus { border-color: var(--red-border); }
-#card-errors {
+#adminPanel textarea { min-height: 70px; }
+#adminPanel .admin-btn, #adminPanel button, #adminPanel input[type=submit] {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: #ff6b6b;
-  min-height: 16px;
-  letter-spacing: 1px;
-}
-.pay-btn {
-  width: 100%;
-  padding: 16px;
+  color: #fff;
   background: var(--red);
   border: none;
   border-radius: 2px;
-  color: #fff;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
+  padding: 10px 24px;
+  margin-top: 8px;
   text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  margin-right: 8px;
+  transition: background 0.2s;
 }
-.pay-btn:hover { background: #ff2233; box-shadow: 0 0 30px rgba(232,25,44,0.35); }
-.pay-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.pay-btn .spinner {
-  width: 14px; height: 14px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+#adminPanel .admin-btn:hover, #adminPanel button:hover, #adminPanel input[type=submit]:hover { background: #ff2233; }
+#adminPanel .admin-close {
+  color: var(--muted2);
+  font-size: 2rem;
+  background: none; border: none;
+  position: absolute; right: 14px; top: 10px; cursor: pointer;
+  transition: color 0.15s;
+  font-family: 'JetBrains Mono', monospace;
+}
+#adminPanel .admin-close:hover { color: var(--red); }
+#adminPanel .admin-section {
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+}
+#adminPanel .section-title {
+  color: var(--white);
+  font-size: 1.4rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  margin-top: 12px;
+}
+#adminPanel .product-list { margin: 0; padding: 0 0 0 15px; list-style: none; }
+#adminPanel .product-item {
+  margin-bottom: 10px;
+  background: var(--surface);
+  border-radius: 3px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  margin-right: 5px;
+}
+#adminPanel .product-actions { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 5px; }
+#adminPanel .accounts-list {
+  font-size: 0.90rem; background: var(--bg); color: var(--muted2); border-radius: 2px; padding: 8px; margin: 5px 0 0 0;
+  word-break: break-all;
+  max-height: 85px; overflow-y: auto;
+}
+#adminPanel .save-msg {
+  color: #10b981;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
   display: none;
 }
-.pay-btn.loading .spinner { display: block; }
-.pay-btn.loading .btn-text { display: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.secure-note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  margin-top: 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 1px;
-  color: var(--muted2);
+#adminPanel .err-msg {
+  color: #e8192c;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  display: none;
 }
-.lock-icon { width: 10px; height: 10px; }
-
-/* ─── SCROLL REVEAL ─── */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+#adminPanel .mini-btn {
+  border: none; background: var(--muted); color: var(--white);
+  padding: 2px 12px; font-size: 0.9rem; border-radius: 2px; cursor: pointer; margin-right: 6px; margin-top: 4px;
 }
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
+#adminPanel .mini-btn.danger { background: var(--red); }
+@media (max-width: 650px) {
+  #adminPanel { min-width: unset; width: 96vw; padding: 10vw 4vw; }
 }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-
-/* ─── TOAST ─── */
-.toast {
+/* Account Reveal Modal */
+#revealModal {
   position: fixed;
-  bottom: 40px; right: 40px;
+  left: 0; top: 0; width: 100vw; height:100vh;
+  background: rgba(6,6,8,0.92);
+  z-index: 20000;
+  display: none;
+  align-items: center; justify-content: center;
+}
+#revealModal.active { display: flex; }
+#revealContent {
   background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px 24px;
+  color: var(--white);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-  z-index: 1000;
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.3s;
-  pointer-events: none;
+  border-radius: 10px;
+  border: 1px solid var(--red);
+  box-shadow: 0 0 60px #000a;
+  padding: 36px 28px;
+  min-width: 330px;
+  max-width: 95vw;
+  display: flex; flex-direction: column; align-items: center;
+  font-size: 1.28rem;
+  text-align: center;
 }
-.toast.show { transform: translateY(0); opacity: 1; }
-.toast.success { border-color: rgba(16,185,129,0.3); color: #10b981; }
-.toast.error { border-color: var(--red-border); color: #ff6b6b; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 900px) {
-  nav { padding: 0 24px; }
-  .section { padding: 80px 24px; }
-  footer { padding: 40px 24px; flex-direction: column; gap: 24px; text-align: center; }
-  .steps-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 30px; }
-  .modal { padding: 32px 24px; margin: 0 20px; }
+#revealContent .lbl {
+  font-size: 0.95rem; color: var(--muted2); letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase;
 }
+#revealContent .acc {
+  font-size: 1.25rem;
+  background: var(--surface);
+  padding: 15px 25px; border-radius: 6px;
+  border: 1px solid var(--red-border);
+  margin-bottom: 16px; margin-top: 9px;
+  letter-spacing: 1.5px;
+  user-select: all;
+  word-break: break-all;
+}
+#revealContent .closex {
+  font-size: 1.82rem;
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--red);
+  background: none;
+  border: none;
+  align-self: flex-end;
+  margin: -8px -8px 6px 0;
+  cursor: pointer;
+}
+#revealContent .btn {
+  color: #fff;
+  background: var(--red);
+  border: none;
+  border-radius: 2px;
+  padding: 6px 24px;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin: 0px auto;
+  transition: background 0.2s;
+}
+#revealContent .btn:hover { background: #ff2233; }
 </style>
 </head>
 <body>
@@ -898,6 +217,74 @@ footer {
 <div class="ambient">
   <div class="ambient-blob blob1"></div>
   <div class="ambient-blob blob2"></div>
+</div>
+<!-- ADMIN PANEL MODAL -->
+<div id="adminModal">
+  <form id="adminPanel" tabindex="-1" onsubmit="return false;">
+    <button type="button" class="admin-close" onclick="closeAdmin()">&times;</button>
+    <h2>Admin Panel</h2>
+    <div id="adminAuth" style="">
+      <div class="admin-section">
+        <label for="admin-username">Username:</label>
+        <input id="admin-username" type="text" autocomplete="username" autofocus />
+        <label for="admin-password">Password:</label>
+        <input id="admin-password" type="password" autocomplete="current-password" />
+        <input type="submit" value="Login" class="admin-btn" onclick="adminLogin()"/>
+        <div class="err-msg" id="adminErr"></div>
+      </div>
+    </div>
+    <div id="adminContent" style="display:none;">
+      <div class="admin-section">
+        <div class="save-msg" id="adminSaveMsg"></div>
+        <div class="err-msg" id="adminErrMsg"></div>
+        <div>
+          <span class="section-title">Add Product Panel</span>
+          <label>Panel Name</label>
+          <input type="text" id="adminNewPanelName" placeholder="e.g. Custom Alt" />
+          <label>Panel Price (USD)</label>
+          <input type="text" id="adminNewPanelPrice" placeholder="e.g. 0.50" pattern="[0-9.]+"/>
+          <label>Description</label>
+          <input type="text" id="adminNewPanelDesc" placeholder="Description of panel"/>
+          <label>Features (1 per line)</label>
+          <textarea id="adminNewPanelFeatures" placeholder="Write one feature per line..."></textarea>
+          <label>Badge (color):</label>
+          <select id="adminNewPanelBadge">
+            <option value="green">Green</option>
+            <option value="red">Red</option>
+            <option value="custom">Custom (CSS color string)</option>
+          </select>
+          <input type="text" id="adminNewPanelBadgeCustom" style="display:none" placeholder="#hex or rgba(...)">
+          <label>Stripe Checkout Link</label>
+          <input type="text" id="adminNewPanelStripe" placeholder="Stripe link or leave blank" />
+          <button type="button" class="admin-btn" onclick="addNewPanel()">Add Panel</button>
+        </div>
+      </div>
+      <div class="admin-section">
+        <span class="section-title">All Panels</span>
+        <ul class="product-list" id="adminPanelList"></ul>
+      </div>
+      <div class="admin-section">
+        <span class="section-title">Stock Editor</span>
+        <label>Panel:</label>
+        <select id="adminStockPanel"></select>
+        <label>Accounts (each line: email:password):</label>
+        <textarea id="adminStockTextarea" autocomplete="off"></textarea>
+        <button type="button" class="admin-btn" onclick="addStock()">Add Stock (append)</button>
+        <button type="button" class="admin-btn" onclick="replaceStock()">Replace Stock</button>
+        <div style="margin-top:8px"><b>Current Stock:</b> <span id="adminStockCount">0</span></div>
+        <div class="accounts-list" id="adminStockList"></div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- ACCOUNT REVEAL MODAL -->
+<div id="revealModal">
+  <div id="revealContent">
+    <button class="closex" onclick="closeAccountReveal()">&times;</button>
+    <div class="lbl">Your Account:</div>
+    <div class="acc" id="accountRevealData"></div>
+    <button class="btn" onclick="copyAccountReveal()">Copy</button>
+  </div>
 </div>
 
 <!-- NAV -->
@@ -915,7 +302,7 @@ footer {
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="heroSection">
   <div class="hero-grid"></div>
   <div class="hero-eyebrow">&#9652; Instant Account Delivery &#9652;</div>
   <h1 class="hero-title">
@@ -969,100 +356,13 @@ footer {
   </div>
 </div>
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS (dynamic) -->
 <section class="section" id="products">
   <div class="section-label">Products</div>
   <h2 class="section-title reveal">Choose Your Account</h2>
   <p class="section-desc reveal reveal-delay-1">Premium Hypixel accounts delivered directly to your email within seconds of purchase. Secure, simple, instant.</p>
-
-  <div class="products-grid">
-    <!-- UNBANNED -->
-    <div class="product-card reveal reveal-delay-1">
-      <div class="product-badge badge-green">
-        <div class="badge-dot"></div>
-        Unbanned
-      </div>
-      <div class="product-name">Unbanned Hypixel</div>
-      <div class="product-description">Fully clean account with no bans or restrictions. Ready to play any game mode on Hypixel immediately.</div>
-      <ul class="product-features">
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Clean ban record
-        </li>
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Full server access
-        </li>
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Instant email delivery
-        </li>
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Credentials included
-        </li>
-      </ul>
-      <div class="product-price-row">
-        <div class="product-price">$1</div>
-        <div class="product-price-unit">USD / account</div>
-      </div>
-      <a id="unbanned-btn" href="https://buy.stripe.com/14A4gz8ip34hbOF9P5gIo00?client_reference_id=UNBANNED" class="buy-btn">
-        <span>Purchase Now</span>
-      </a>
-      <div>Stock: <span id="unbanned-stock">...</span></div>
-    </div>
-
-    <!-- BANNED -->
-    <div class="product-card reveal reveal-delay-2">
-      <div class="product-badge badge-red">
-        <div class="badge-dot"></div>
-        Banned
-      </div>
-      <div class="product-name">Banned Hypixel</div>
-      <div class="product-description">Hypixel-banned account, still valid for all other Minecraft servers and activities. Great for alts or testing.</div>
-      <ul class="product-features">
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Valid Minecraft account
-        </li>
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Works on other servers
-        </li>
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Instant email delivery
-        </li>
-        <li>
-          <div class="feat-icon">
-            <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          Budget-friendly alt
-        </li>
-      </ul>
-      <div class="product-price-row">
-        <div class="product-price">$0.50</div>
-        <div class="product-price-unit">USD / account</div>
-      </div>
-      <a id="banned-btn" href="https://buy.stripe.com/cNi9AT429bANbOFaT9gIo01?client_reference_id=BANNED" class="buy-btn">
-        <span>Purchase Now</span>
-      </a>
-      <div>Stock: <span id="banned-stock">...</span></div>
-    </div>
+  <div class="products-grid" id="productsGrid">
+      <!-- Products injected by JS -->
   </div>
 </section>
 
@@ -1080,12 +380,12 @@ footer {
     <div class="step">
       <div class="step-num">01</div>
       <div class="step-title">Select & Pay</div>
-      <div class="step-desc">Choose your account type and complete the secure Stripe checkout. Your payment is encrypted end-to-end.</div>
+      <div class="step-desc">Choose your account type and complete checkout. Your payment is instant (Stripe required, fulfillment after payment).</div>
     </div>
     <div class="step">
       <div class="step-num">02</div>
       <div class="step-title">Auto Delivery</div>
-      <div class="step-desc">Account credentials are automatically sent to your email within seconds of payment confirmation.</div>
+      <div class="step-desc">Account credentials are automatically shown after your Stripe payment is confirmed.</div>
     </div>
     <div class="step">
       <div class="step-num">03</div>
@@ -1102,15 +402,15 @@ footer {
   <div class="faq-list reveal reveal-delay-1">
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">How fast will I receive my account?</div>
-      <div class="faq-a"><div class="faq-a-inner">Delivery is instant — credentials are sent to your email address automatically within seconds of your payment being confirmed by Stripe.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Delivery is instant after Stripe payment—credentials are displayed immediately once payment is confirmed.</div></div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Is my payment secure?</div>
-      <div class="faq-a"><div class="faq-a-inner">Yes. All payments are processed by Stripe, which is PCI DSS Level 1 certified. We never store your card information.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">All payments are processed securely by Stripe, and your purchased account is delivered upon confirmation.</div></div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">What's the difference between the two account types?</div>
-      <div class="faq-a"><div class="faq-a-inner">Unbanned accounts have a clean record and full access to Hypixel. Banned accounts are restricted from Hypixel specifically but work on all other Minecraft servers — perfect for alts.</div></div>
+      <div class="faq-q" onclick="toggleFaq(this)">Can I use the site admin panel to manage stock?</div>
+      <div class="faq-a"><div class="faq-a-inner">Yes! The admin panel allows stock editing panel-by-panel, and it uses a secure server backend to maintain shared stock for all users and admins.</div></div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Where do I get support?</div>
@@ -1130,14 +430,311 @@ footer {
   </div>
 </footer>
 
-<!-- PAYMENT MODAL -->
-<!-- Modal and Stripe scripts are now obsolete and may be removed since buttons redirect directly to Stripe. -->
-
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-/* ─── SCROLL REVEAL ─── */
+// ====================== CONFIG =========================
+const API_BASE = "/api"; // All API calls go here
+
+// ====================== CLIENT - PRODUCTS =======================
+async function fetchProducts() {
+  let res = await fetch(`${API_BASE}/products`);
+  return res.json();
+}
+async function fetchStock(panelKey) {
+  let res = await fetch(`${API_BASE}/stock/${encodeURIComponent(panelKey)}`);
+  return res.json();
+}
+async function fetchAllStock() {
+  let res = await fetch(`${API_BASE}/stock`);
+  return res.json();
+}
+async function renderProducts() {
+  const grid = document.getElementById("productsGrid");
+  let prods = [];
+  try { prods = await fetchProducts(); } catch(e) {}
+  if (!prods || !prods.length) {
+    grid.innerHTML = `<div style="color:var(--muted2);font-family:'JetBrains Mono',monospace;font-size:1.2rem;grid-column:1/-1;text-align:center;opacity:.7;padding:48px;">No products yet. Use Admin panel (Ctrl+Alt+L) to add one!</div>`;
+    return;
+  }
+  let allStock = {};
+  try { allStock = await fetchAllStock(); } catch(e) {}
+  let html = "";
+  for (let prod of prods) {
+    const stockArr = (allStock && allStock[prod.key]) || [];
+    const hasStock = stockArr && stockArr.length > 0;
+    let badgeClr = prod.badge == "red" ? "badge-red" : (prod.badge == "green" ? "badge-green" : "");
+    let badgeStyle = prod.badge == "custom" ? `style="background:${prod.badgeCustom};color:#fff;border:1px solid #fff"` : "";
+    html += `
+    <div class="product-card reveal">
+      <div class="product-badge ${badgeClr}" ${badgeStyle}>
+        <div class="badge-dot"></div>
+        ${prod.name}
+      </div>
+      <div class="product-name">${prod.name}</div>
+      <div class="product-description">${prod.desc||''}</div>
+      <ul class="product-features">${
+        (prod.features||[]).map(f=>`
+        <li>
+          <div class="feat-icon"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          ${f}
+        </li>`).join("")
+      }</ul>
+      <div class="product-price-row">
+        <div class="product-price">$${prod.price}</div>
+        <div class="product-price-unit">${prod.priceUnit||'USD / account'}</div>
+      </div>
+      <a href="#" class="buy-btn"${hasStock?'':' style="pointer-events:none;opacity:0.5;"'} onclick="startStripeCheckout('${prod.key}');return false;">
+        <span>${hasStock?'Purchase Now':'Out of Stock'}</span>
+      </a>
+      <div>Stock: <span id="stock-${prod.key}">${stockArr.length}</span></div>
+    </div>`;
+  }
+  grid.innerHTML = html;
+}
+
+// Stripe integration: redirect to stripe, on success, page shows fulfillment page (done via server)
+function startStripeCheckout(panelKey) {
+  // Call backend to create Stripe checkout and redirect user
+  fetch(`${API_BASE}/create-checkout-session`, {
+    method: "POST",
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ panelKey })
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if (data.url) {
+      window.location = data.url;
+    } else {
+      showToast("Error starting checkout", "error");
+    }
+  });
+}
+
+// Stripe fulfillment page
+async function checkURLForFulfillment() {
+  const url = new URL(window.location);
+  if (url.pathname == "/fulfilled") {
+    const session = url.searchParams.get("session");
+    if (!session) return;
+    let res;
+    try {
+      res = await fetch(`${API_BASE}/fulfillment/${encodeURIComponent(session)}`);
+      res = await res.json();
+    } catch(e) { document.body.innerHTML = "<h1>Payment Error. Contact support.</h1>"; return;}
+    if (!res || !res.success) {
+      document.body.innerHTML = "<h1>Could not verify your order. Contact support.</h1>";
+    } else {
+      document.body.innerHTML = `
+<div id="revealModal" class="active" style="display:flex !important;">
+  <div id="revealContent">
+    <div class="lbl">Your Account:</div>
+    <div class="acc">${res.key ? res.key : "<span style='color:red;'>Out of stock on fulfillment. Your payment will be refunded automatically.</span>"}</div>
+    <button class="btn" onclick='navigator.clipboard.writeText("${res.key ? res.key : ''}");'>Copy</button>
+    <div style='margin-top:20px;'><a href="/" class="btn" style="background:var(--surface2);color:var(--red);border:1px solid var(--red-border)">Back to site</a></div>
+  </div>
+</div>`;
+    }
+  }
+}
+
+// ================== ADMIN PANEL =========================
+const ADMIN_USER = "1havedr";
+const ADMIN_PASS = "Asshole1313";
+
+let ctrlDown = false, altDown = false;
+window.addEventListener('keydown', function(e) {
+  if (e.code === 'ControlLeft' || e.code === 'ControlRight') ctrlDown = true;
+  if (e.code === 'AltLeft' || e.code === 'AltRight') altDown = true;
+  if (ctrlDown && altDown && e.code.toLowerCase() === 'keyl') {
+    e.preventDefault();
+    openAdminModal();
+  }
+});
+window.addEventListener('keyup', function(e) {
+  if (e.code.startsWith("Control")) ctrlDown = false;
+  if (e.code.startsWith("Alt")) altDown = false;
+});
+function openAdminModal() {
+  document.getElementById("adminModal").classList.add("active");
+  document.getElementById('adminAuth').style.display = '';
+  document.getElementById('adminContent').style.display = 'none';
+  document.getElementById("adminPanel").reset && document.getElementById("adminPanel").reset();
+  setTimeout(()=>{document.getElementById("admin-username").focus();},80);
+}
+function closeAdmin() {
+  document.getElementById("adminModal").classList.remove("active");
+}
+
+function adminLogin() {
+  const u = document.getElementById("admin-username").value;
+  const p = document.getElementById("admin-password").value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    document.getElementById("adminAuth").style.display = 'none';
+    document.getElementById("adminContent").style.display = '';
+    renderAdminPanel();
+  } else {
+    document.getElementById("adminErr").innerText = "Invalid credentials";
+    document.getElementById("adminErr").style.display = "block";
+    setTimeout(()=>{document.getElementById("adminErr").style.display="none";},1400);
+  }
+}
+async function renderAdminPanel() {
+  await renderAdminProductList();
+  await renderAdminStockDropdown();
+  document.getElementById("adminSaveMsg").style.display = "none";
+  document.getElementById("adminErrMsg").style.display = "none";
+  document.getElementById("adminNewPanelName").value = "";
+  document.getElementById("adminNewPanelPrice").value = "";
+  document.getElementById("adminNewPanelDesc").value = "";
+  document.getElementById("adminNewPanelFeatures").value = "";
+  document.getElementById("adminNewPanelBadgeCustom").value = "";
+  document.getElementById("adminNewPanelStripe").value = "";
+}
+async function renderAdminProductList() {
+  let prods = [];
+  try { prods = await fetchProducts(); } catch(e){}
+  const ul = document.getElementById("adminPanelList");
+  if (!ul) return;
+  ul.innerHTML = "";
+  if (!prods.length) {
+    ul.innerHTML = "<li style='color:var(--muted);font-size:1rem;padding:8px;'>No Panels. Add one above.</li>";
+    return;
+  }
+  prods.forEach((prod, idx) => {
+    let ftrs = (prod.features||[]).map(f=>`<li style="color:var(--muted2);margin-left:12px;">- ${f}</li>`).join('');
+    ul.innerHTML += `<li class="product-item">
+      <div><b>${prod.name}</b> | Price: $${prod.price} | <span style="color:var(--muted2)">Key: <code>${prod.key}</code></span></div>
+      <div><b>Badge:</b> ${prod.badge}${prod.badge==='custom'?` [${prod.badgeCustom}]`:''} </div>
+      <div><b>Description:</b> ${prod.desc||''}</div>
+      <div><b>Stripe Link:</b> <code style="font-size:0.78em;color:var(--red)">${prod.stripe||''}</code></div>
+      <div><b>Features:</b> <ul style='margin:0;'>${ftrs}</ul></div>
+      <div class="product-actions">
+        <button type="button" class="mini-btn" onclick="adminEditPanel(${idx})">Edit</button>
+        <button type="button" class="mini-btn danger" onclick="adminDeletePanel('${prod.key}')">Remove</button>
+      </div>
+    </li>`;
+  });
+}
+async function renderAdminStockDropdown() {
+  let prods = [];
+  try { prods = await fetchProducts(); } catch(e){}
+  const sel = document.getElementById("adminStockPanel");
+  sel.innerHTML = "";
+  if (!prods.length) sel.innerHTML = "<option value=''>No Panels</option>";
+  prods.forEach((prod, idx) => {
+    sel.innerHTML += `<option value="${prod.key}">${prod.name}</option>`;
+  });
+  sel.onchange = updateAdminStockDisplay;
+  setTimeout(updateAdminStockDisplay, 12);
+}
+async function updateAdminStockDisplay() {
+  const sel = document.getElementById("adminStockPanel");
+  const key = sel.value;
+  let st = [];
+  try { let o = await fetchStock(key); st = o && o.stock ? o.stock : []; } catch(e){}
+  document.getElementById("adminStockCount").textContent = st.length;
+  document.getElementById("adminStockList").textContent = st.join("\n");
+  document.getElementById("adminStockTextarea").value = "";
+}
+function addNewPanel() {
+  let name = document.getElementById("adminNewPanelName").value.trim();
+  let price = document.getElementById("adminNewPanelPrice").value.trim();
+  let desc = document.getElementById("adminNewPanelDesc").value.trim();
+  let features = document.getElementById("adminNewPanelFeatures").value.split('\n').map(x=>x.trim()).filter(Boolean);
+  let badge = document.getElementById("adminNewPanelBadge").value;
+  let badgeCustom = badge === "custom" ? (document.getElementById("adminNewPanelBadgeCustom").value.trim() || "#e8192c") : "";
+  let stripe = document.getElementById("adminNewPanelStripe").value.trim();
+  if (!name || !price) {
+    adminMsg("Please enter panel name and price.", true); return;
+  }
+  let key = name.replace(/[^a-zA-Z0-9]/g,'').toUpperCase().substr(0,16);
+  fetch(`${API_BASE}/add-panel`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ key, name, desc, price, priceUnit:'USD / account', badge, badgeCustom, stripe, features })
+  })
+  .then(r=>r.json()).then(j=>{
+    if(j.success) {
+      adminMsg("Panel Added!", false); renderAdminPanel(); renderProducts();
+    }else{
+      adminMsg(j.error || "Failed to add panel.", true);
+    }
+  });
+}
+function adminEditPanel(idx) {
+  // Editing is a remove + add
+  fetchProducts().then(prods=>{
+    let p = prods[idx];
+    document.getElementById("adminNewPanelName").value = p.name;
+    document.getElementById("adminNewPanelPrice").value = p.price||'';
+    document.getElementById("adminNewPanelDesc").value = p.desc||'';
+    document.getElementById("adminNewPanelFeatures").value = (p.features||[]).join('\n');
+    document.getElementById("adminNewPanelBadge").value = p.badge;
+    if (p.badge==="custom") document.getElementById("adminNewPanelBadgeCustom").value = p.badgeCustom;
+    document.getElementById("adminNewPanelStripe").value = p.stripe||'';
+    adminDeletePanel(p.key, true);
+    adminMsg("Editing now — save to keep changes.",false);
+  });
+}
+function adminDeletePanel(key, skipMsg) {
+  fetch(`${API_BASE}/remove-panel`, {
+    method:'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ key })
+  }).then(r=>r.json()).then(j=>{
+    if (!skipMsg) adminMsg(j.success?"Panel removed.":(j.error||"Error removing panel."),!j.success);
+    renderAdminPanel(); renderProducts();
+  });
+}
+function addStock() {
+  let sel = document.getElementById("adminStockPanel");
+  let key = sel.value;
+  if (!key) {adminMsg("Select panel.",true); return;}
+  let arr = document.getElementById("adminStockTextarea").value.split('\n').map(x=>x.trim()).filter(Boolean);
+  if (!arr.length) { adminMsg("Paste accounts line by line.",true); return; }
+  fetch(`${API_BASE}/add-stock`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ key, stock: arr })
+  }).then(r=>r.json()).then(j=>{
+    adminMsg(j.success?`Added ${arr.length} accounts.`:(j.error||"Error!"),!j.success);
+    updateAdminStockDisplay(); renderProducts();
+  });
+}
+function replaceStock() {
+  let sel = document.getElementById("adminStockPanel");
+  let key = sel.value;
+  if (!key) {adminMsg("Select panel.",true);return;}
+  let arr = document.getElementById("adminStockTextarea").value.split('\n').map(x=>x.trim()).filter(Boolean);
+  fetch(`${API_BASE}/replace-stock`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ key, stock: arr })
+  }).then(r=>r.json()).then(j=>{
+    adminMsg(j.success?`Stock replaced, total ${arr.length} accounts set.`:(j.error||"Error!"),!j.success);
+    updateAdminStockDisplay(); renderProducts();
+  });
+}
+function adminMsg(msg,err) {
+  let ok = document.getElementById("adminSaveMsg"), bad = document.getElementById("adminErrMsg");
+  if (err) {
+    bad.innerText = msg; bad.style.display="block";
+    ok.style.display='none';
+  } else {
+    ok.innerText = msg; ok.style.display = "block";
+    bad.style.display = 'none';
+  }
+  setTimeout(()=>{ok.style.display='none'; bad.style.display='none';}, 2100);
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('adminNewPanelBadge').addEventListener('change', e => {
+    document.getElementById('adminNewPanelBadgeCustom').style.display = e.target.value === 'custom' ? '' : 'none';
+  });
+  renderProducts();
+  checkURLForFulfillment();
+});
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -1147,17 +744,13 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
-
-/* ─── FAQ ─── */
-function toggleFaq(el) {
-  const item = el.parentElement;
+revealEls.forEach(he => observer.observe(he));
+function toggleFaq(he) {
+  const item = he.parentElement;
   const isOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
-
-/* ─── TOAST ─── */
 function showToast(msg, type = 'success') {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1165,30 +758,29 @@ function showToast(msg, type = 'success') {
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 </script>
-
-<script>
-async function loadStock() {
-  const bannedRes = await fetch("https://aa33-64-25-12-74.ngrok-free.app/stock/BANNED");
-  const bannedData = await bannedRes.json();
-  const unbannedRes = await fetch("https://aa33-64-25-12-74.ngrok-free.app/stock/UNBANNED");
-  const unbannedData = await unbannedRes.json();
-  document.getElementById("banned-stock").innerText = bannedData.stock;
-  document.getElementById("unbanned-stock").innerText = unbannedData.stock;
-  if (bannedData.stock <= 0) {
-    let btn = document.getElementById("banned-btn");
-    btn.style.opacity = "0.5";
-    btn.style.pointerEvents = "none";
-    btn.innerText = "Out of Stock";
-  }
-  if (unbannedData.stock <= 0) {
-    let btn = document.getElementById("unbanned-btn");
-    btn.style.opacity = "0.5";
-    btn.style.pointerEvents = "none";
-    btn.innerText = "Out of Stock";
-  }
-}
-
-loadStock();
-</script>
 </body>
 </html>
+/** 
+ * 
+ * ============ SERVER ENDPOINTS NEEDED IN ./api ===================
+ * (Use as serverless endpoints with Node/Express, Next.js API, or similar)
+ *
+ * ========== STRIPE IMPLEMENTATION ===========
+ * 
+ * 1. POST /api/add-panel        body: {key, ...props}    => adds panel
+ * 2. POST /api/remove-panel     body: {key}              => removes
+ * 3. POST /api/add-stock        body: {key, stock:[]}    => adds to stock (append)
+ * 4. POST /api/replace-stock    body: {key, stock:[]}    => replaces stock
+ * 5. GET  /api/products         returns array [{key, ...}]
+ * 6. GET  /api/stock/:key       returns {stock:[]}
+ * 7. GET  /api/stock            returns {panelKey: [arr], ...}
+ * 8. POST /api/create-checkout-session body:{panelKey}   => Creates Stripe checkout session, returns {url}
+ * 9. POST /api/webhook         stripe webhook fulfillment: pops a stock line, binds line w/session.
+ * 10. GET /api/fulfillment/:session  => returns {key:line, success:true}
+ * 
+ * MAKE SURE TO SET YOUR SECRET KEY IN THE BACKEND:
+ *     stripe.api_key = "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"
+ *     WEBHOOK_SECRET = "whsec_qmFNaDfHyPMxnJ6qpNQBHoVDrtayXaEp"
+ * 
+ * This HTML/JS expects a backend. DO NOT "just save this file" if you want to really serve keys/stock securely.
+ */
