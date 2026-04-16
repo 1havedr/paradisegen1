@@ -515,6 +515,10 @@ nav {
   transition: all 0.2s;
   position: relative;
   overflow: hidden;
+  text-align: center;
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 .buy-btn::before {
   content: "";
@@ -1010,9 +1014,7 @@ footer {
         <div class="product-price">$1</div>
         <div class="product-price-unit">USD / account</div>
       </div>
-      <button class="buy-btn" onclick="openModal('unbanned', 'Unbanned Hypixel', '1.00')">
-        <span>Purchase Now</span>
-      </button>
+      <a href="https://buy.stripe.com/14A4gz8ip34hbOF9P5gIo00?client_reference_id=1485846877768515697" class="buy-btn"><span>Purchase Now</span></a>
     </div>
 
     <!-- BANNED -->
@@ -1053,9 +1055,7 @@ footer {
         <div class="product-price">$0.50</div>
         <div class="product-price-unit">USD / account</div>
       </div>
-      <button class="buy-btn" onclick="openModal('banned', 'Banned Hypixel', '0.50')">
-        <span>Purchase Now</span>
-      </button>
+      <a href="https://buy.stripe.com/14A4gz8ip34hbOF9P5gIo00?client_reference_id=1485846877768515697" class="buy-btn"><span>Purchase Now</span></a>
     </div>
   </div>
 </section>
@@ -1125,171 +1125,12 @@ footer {
 </footer>
 
 <!-- PAYMENT MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <div class="modal-tag">Checkout</div>
-    <div class="modal-title" id="modalTitle">Unbanned Hypixel</div>
-    <div class="modal-price" id="modalPrice">$1.00</div>
-
-    <div class="modal-field">
-      <label class="modal-label" for="emailInput">Delivery Email</label>
-      <input class="modal-input" type="email" id="emailInput" placeholder="you@example.com" autocomplete="email">
-    </div>
-
-    <div class="modal-field">
-      <label class="modal-label">Card Details</label>
-      <div id="card-element"></div>
-      <div id="card-errors" role="alert"></div>
-    </div>
-
-    <button class="pay-btn" id="payBtn" onclick="handlePayment()">
-      <div class="spinner"></div>
-      <span class="btn-text">Complete Purchase</span>
-    </button>
-
-    <div class="secure-note">
-      <svg class="lock-icon" viewBox="0 0 10 12" fill="none"><rect x="1" y="5" width="8" height="7" rx="1" stroke="#666677" stroke-width="1"/><path d="M3 5V3.5a2 2 0 014 0V5" stroke="#666677" stroke-width="1"/></svg>
-      Secured by Stripe — 256-bit SSL encryption
-    </div>
-  </div>
-</div>
+<!-- Modal and Stripe scripts are now obsolete and may be removed since buttons redirect directly to Stripe. -->
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-/* ─── CONFIG ─────────────────────────────────────────────────
-   SETUP INSTRUCTIONS:
-   1. Replace 'pk_test_YOUR_KEY_HERE' with your actual Stripe publishable key
-   2. Create a Payment Intent on your backend (Node/Python/etc.)
-   3. Replace the createPaymentIntent function with a real API call to your server
-   4. Your server should return a clientSecret from stripe.paymentIntents.create()
-──────────────────────────────────────────────────────────── */
-const STRIPE_PK = 'pk_test_YOUR_PUBLISHABLE_KEY_HERE';
-
-const PRODUCTS = {
-  unbanned: { name: 'Unbanned Hypixel', price: 100,  display: '$1.00' },
-  banned:   { name: 'Banned Hypixel',   price: 50,   display: '$0.50' }
-};
-
-let stripe, cardElement, currentProduct;
-
-function initStripe() {
-  try {
-    stripe = Stripe(STRIPE_PK);
-    const elements = stripe.elements({
-      appearance: {
-        theme: 'night',
-        variables: {
-          colorPrimary: '#e8192c',
-          colorBackground: '#060608',
-          colorText: '#f0f0f0',
-          colorDanger: '#ff6b6b',
-          fontFamily: '"JetBrains Mono", monospace',
-          borderRadius: '2px',
-        }
-      }
-    });
-    cardElement = elements.create('card', {
-      style: {
-        base: {
-          color: '#f0f0f0',
-          fontFamily: '"JetBrains Mono", monospace',
-          fontSize: '13px',
-          letterSpacing: '1px',
-          '::placeholder': { color: '#444455' }
-        },
-        invalid: { color: '#ff6b6b' }
-      }
-    });
-    cardElement.mount('#card-element');
-    cardElement.on('change', e => {
-      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-    });
-  } catch(e) {
-    console.warn('Stripe init failed — add your publishable key:', e.message);
-  }
-}
-
-function openModal(productKey, name, price) {
-  currentProduct = productKey;
-  document.getElementById('modalTitle').textContent = PRODUCTS[productKey].name;
-  document.getElementById('modalPrice').textContent = PRODUCTS[productKey].display;
-  document.getElementById('modalOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  if (!stripe) initStripe();
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-}
-
-async function handlePayment() {
-  const email = document.getElementById('emailInput').value.trim();
-  if (!email || !email.includes('@')) {
-    showToast('Please enter a valid email address.', 'error');
-    return;
-  }
-  if (!stripe || !cardElement) {
-    showToast('Payment system not ready. Add your Stripe key.', 'error');
-    return;
-  }
-
-  const btn = document.getElementById('payBtn');
-  btn.classList.add('loading');
-  btn.disabled = true;
-
-  try {
-    /* ── BACKEND CALL ──────────────────────────────────────────
-       In production, call YOUR server endpoint to create a
-       PaymentIntent and return the clientSecret. Example:
-
-       const res = await fetch('/api/create-payment-intent', {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({
-           product: currentProduct,
-           amount: PRODUCTS[currentProduct].price,
-           email
-         })
-       });
-       const { clientSecret } = await res.json();
-    ─────────────────────────────────────────────────────────── */
-
-    // DEMO: shows flow without a real backend
-    await new Promise(r => setTimeout(r, 1400));
-
-    /* With a real clientSecret you'd do:
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: { email }
-      }
-    });
-    if (error) throw error;
-    if (paymentIntent.status === 'succeeded') { ... }
-    */
-
-    // Simulate success for demo
-    closeModal();
-    showToast('Payment successful! Check your email.', 'success');
-    document.getElementById('emailInput').value = '';
-
-  } catch (err) {
-    document.getElementById('card-errors').textContent = err.message || 'Payment failed.';
-    showToast('Payment failed. Please try again.', 'error');
-  } finally {
-    btn.classList.remove('loading');
-    btn.disabled = false;
-  }
-}
-
 /* ─── SCROLL REVEAL ─── */
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => {
@@ -1317,11 +1158,6 @@ function showToast(msg, type = 'success') {
   t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 3500);
 }
-
-/* ─── KEYBOARD ─── */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
 </script>
 </body>
 </html>
