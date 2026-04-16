@@ -1014,7 +1014,10 @@ footer {
         <div class="product-price">$1</div>
         <div class="product-price-unit">USD / account</div>
       </div>
-      <a href="https://buy.stripe.com/14A4gz8ip34hbOF9P5gIo00?client_reference_id=1485846877768515697" class="buy-btn"><span>Purchase Now</span></a>
+      <a id="unbanned-btn" href="https://buy.stripe.com/14A4gz8ip34hbOF9P5gIo00?client_reference_id=UNBANNED" class="buy-btn">
+        <span>Purchase Now</span>
+      </a>
+      <div>Stock: <span id="unbanned-stock">...</span></div>
     </div>
 
     <!-- BANNED -->
@@ -1055,7 +1058,10 @@ footer {
         <div class="product-price">$0.50</div>
         <div class="product-price-unit">USD / account</div>
       </div>
-      <a href="https://buy.stripe.com/14A4gz8ip34hbOF9P5gIo00?client_reference_id=1485846877768515697" class="buy-btn"><span>Purchase Now</span></a>
+      <a id="banned-btn" href="https://buy.stripe.com/cNi9AT429bANbOFaT9gIo01?client_reference_id=BANNED" class="buy-btn">
+        <span>Purchase Now</span>
+      </a>
+      <div>Stock: <span id="banned-stock">...</span></div>
     </div>
   </div>
 </section>
@@ -1158,6 +1164,31 @@ function showToast(msg, type = 'success') {
   t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 3500);
 }
+</script>
+
+<script>
+async function loadStock() {
+  const bannedRes = await fetch("https://aa33-64-25-12-74.ngrok-free.app/stock/BANNED");
+  const bannedData = await bannedRes.json();
+  const unbannedRes = await fetch("https://aa33-64-25-12-74.ngrok-free.app/stock/UNBANNED");
+  const unbannedData = await unbannedRes.json();
+  document.getElementById("banned-stock").innerText = bannedData.stock;
+  document.getElementById("unbanned-stock").innerText = unbannedData.stock;
+  if (bannedData.stock <= 0) {
+    let btn = document.getElementById("banned-btn");
+    btn.style.opacity = "0.5";
+    btn.style.pointerEvents = "none";
+    btn.innerText = "Out of Stock";
+  }
+  if (unbannedData.stock <= 0) {
+    let btn = document.getElementById("unbanned-btn");
+    btn.style.opacity = "0.5";
+    btn.style.pointerEvents = "none";
+    btn.innerText = "Out of Stock";
+  }
+}
+
+loadStock();
 </script>
 </body>
 </html>
