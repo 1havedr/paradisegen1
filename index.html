@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="in">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,15 +25,15 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Rajdhani',sans-serif;background:our(--bg);color:our(--white);overflow-x:hidden;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
 body::after{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.5;}
 
 /* AMBIENT */
 .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .ambient-blob{position:absolute;border-radius:50%;filter:blur(120px);}
-.blob1{width:700px;height:700px;background:radial-gradient(circle,rgba(232,25,44,0.12),transparent 70%);top:-200px;left:-200px;animation:operation1 18s ease-in-out infinite alternate;}
-.blob2{width:500px;height:500px;background:radial-gradient(circle,rgba(180,10,30,0.08),transparent 70%);bottom:0;right:-100px;animation:operation2 22s ease-in-out infinite alternate;}
-@keyframes operation1{to{transform:translate(80px,100px);}}
+.blob1{width:700px;height:700px;background:radial-gradient(circle,rgba(232,25,44,0.12),transparent 70%);top:-200px;left:-200px;animation:drift1 18s ease-in-out infinite alternate;}
+.blob2{width:500px;height:500px;background:radial-gradient(circle,rgba(180,10,30,0.08),transparent 70%);bottom:0;right:-100px;animation:drift2 22s ease-in-out infinite alternate;}
+@keyframes drift1{to{transform:translate(80px,100px);}}
 @keyframes drift2{to{transform:translate(-60px,-80px);}}
 
 /* NAV */
@@ -713,7 +713,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 
 <script>
 // ─── CONFIG ─────────────────────────────────────────────────────────────────
-const API = 'https://d566-64-25-12-74.ngrok-free.app'; // Change to your server URL
+const API = 'https://d566-64-25-12-74.ngrok-free.app/'; // Change to your server URL
 const ADMIN_USER = '1havedr';
 const ADMIN_PASS = 'Asshole1313';
 
