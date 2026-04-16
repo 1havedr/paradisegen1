@@ -3,140 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paradise Gen — Instant Account Delivery</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Dispo Alts — Instant Account Delivery</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #060608;
-  --surface: #0e0e12;
-  --surface2: #14141a;
-  --surface3: #1a1a22;
-  --red: #e8192c;
-  --red-dim: #a01020;
-  --red-glow: rgba(232,25,44,0.18);
-  --red-border: rgba(232,25,44,0.3);
-  --white: #f0f0f0;
-  --muted: #666677;
-  --muted2: #444455;
-  --border: rgba(255,255,255,0.06);
-  --green: #10b981;
-  --green-bg: rgba(16,185,129,0.1);
-  --green-border: rgba(16,185,129,0.2);
+  --bg: #030809;
+  --surface: #080f10;
+  --surface2: #0d1618;
+  --surface3: #111e20;
+  --cyan: #00e5ff;
+  --cyan-dim: #007a8c;
+  --cyan-glow: rgba(0,229,255,0.12);
+  --cyan-border: rgba(0,229,255,0.25);
+  --white: #e8f4f6;
+  --muted: #4a7a82;
+  --muted2: #2a4a50;
+  --border: rgba(0,229,255,0.07);
+  --green: #00ffa3;
+  --green-bg: rgba(0,255,163,0.08);
+  --green-border: rgba(0,255,163,0.2);
+  --orange: #ff6b35;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
-body::after{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.5;}
+body{font-family:'Exo 2',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
+body::after{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.4;}
 
 /* AMBIENT */
 .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .ambient-blob{position:absolute;border-radius:50%;filter:blur(120px);}
-.blob1{width:700px;height:700px;background:radial-gradient(circle,rgba(232,25,44,0.12),transparent 70%);top:-200px;left:-200px;animation:drift1 18s ease-in-out infinite alternate;}
-.blob2{width:500px;height:500px;background:radial-gradient(circle,rgba(180,10,30,0.08),transparent 70%);bottom:0;right:-100px;animation:drift2 22s ease-in-out infinite alternate;}
-@keyframes drift1{to{transform:translate(80px,100px);}}
-@keyframes drift2{to{transform:translate(-60px,-80px);}}
+.blob1{width:800px;height:800px;background:radial-gradient(circle,rgba(0,229,255,0.07),transparent 70%);top:-300px;left:-200px;animation:drift1 20s ease-in-out infinite alternate;}
+.blob2{width:600px;height:600px;background:radial-gradient(circle,rgba(0,180,210,0.05),transparent 70%);bottom:-100px;right:-150px;animation:drift2 25s ease-in-out infinite alternate;}
+.blob3{width:400px;height:400px;background:radial-gradient(circle,rgba(0,255,163,0.04),transparent 70%);top:40%;left:60%;animation:drift1 30s ease-in-out infinite alternate-reverse;}
+@keyframes drift1{to{transform:translate(100px,120px);}}
+@keyframes drift2{to{transform:translate(-80px,-100px);}}
 
 /* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;padding:0 60px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,6,8,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;display:flex;align-items:center;gap:8px;}
-.nav-logo .dot{width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 10px var(--red);animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.85);}}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:0 60px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(3,8,9,0.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Orbitron',sans-serif;font-size:1.1rem;letter-spacing:4px;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);}
+.nav-logo .dot{width:8px;height:8px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan);animation:pulse 2s ease-in-out infinite;}
+.nav-logo .logo-accent{color:var(--cyan);}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
 .nav-links{display:flex;align-items:center;gap:36px;}
-.nav-links a{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--white);}
-.nav-links .nav-cta{color:var(--red);border:1px solid var(--red-border);padding:6px 18px;border-radius:2px;}
-.nav-links .nav-cta:hover{background:var(--red-glow);color:var(--white);}
+.nav-links .nav-cta{color:var(--cyan);border:1px solid var(--cyan-border);padding:7px 20px;border-radius:2px;transition:all 0.2s;}
+.nav-links .nav-cta:hover{background:var(--cyan-glow);color:var(--white);box-shadow:0 0 20px rgba(0,229,255,0.15);}
 
 /* HERO */
 .hero{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 20px;overflow:hidden;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,25,44,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,25,44,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black,transparent);}
-.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:4px;color:var(--red);text-transform:uppercase;margin-bottom:24px;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s 0.2s forwards;}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,14vw,12rem);line-height:0.9;letter-spacing:4px;opacity:0;transform:translateY(30px);animation:fadeUp 0.9s 0.4s forwards;}
-.hero-title .red{color:var(--red);}
-.hero-title .stroke{-webkit-text-stroke:1.5px rgba(255,255,255,0.15);color:transparent;}
-.hero-sub{font-size:1rem;font-weight:500;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-top:20px;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s 0.6s forwards;}
-.hero-cta-group{display:flex;gap:16px;margin-top:48px;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s 0.8s forwards;}
-.btn-primary{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;padding:14px 36px;background:var(--red);color:#fff;border:none;border-radius:2px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
-.btn-primary:hover{background:#ff2233;box-shadow:0 0 30px rgba(232,25,44,0.4);transform:translateY(-2px);}
-.btn-secondary{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;padding:14px 36px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:2px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black,transparent);}
+.hero-scanline{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,229,255,0.01) 3px,rgba(0,229,255,0.01) 4px);pointer-events:none;}
+.hero-eyebrow{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:5px;color:var(--cyan);text-transform:uppercase;margin-bottom:28px;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s 0.2s forwards;}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(3.5rem,10vw,9rem);line-height:0.95;letter-spacing:6px;font-weight:900;opacity:0;transform:translateY(30px);animation:fadeUp 0.9s 0.4s forwards;}
+.hero-title .accent{color:var(--cyan);text-shadow:0 0 40px rgba(0,229,255,0.4);}
+.hero-title .stroke{-webkit-text-stroke:1px rgba(0,229,255,0.2);color:transparent;}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:0.8rem;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-top:24px;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s 0.6s forwards;}
+.hero-cta-group{display:flex;gap:16px;margin-top:52px;opacity:0;transform:translateY(20px);animation:fadeUp 0.8s 0.8s forwards;}
+.btn-primary{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;padding:14px 40px;background:var(--cyan);color:#030809;border:none;border-radius:2px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:700;}
+.btn-primary:hover{background:#33ecff;box-shadow:0 0 40px rgba(0,229,255,0.4);transform:translateY(-2px);}
+.btn-secondary{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;padding:14px 40px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:2px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
 .btn-secondary:hover{border-color:var(--muted2);color:var(--white);}
-.hero-stats{position:absolute;bottom:60px;display:flex;gap:60px;opacity:0;animation:fadeUp 0.8s 1s forwards;}
+.hero-stats{position:absolute;bottom:60px;display:flex;gap:70px;opacity:0;animation:fadeUp 0.8s 1s forwards;}
 .stat-item{text-align:center;}
-.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--red);letter-spacing:2px;}
-.stat-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px;}
-.scroll-hint{position:absolute;bottom:20px;right:60px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;display:flex;align-items:center;gap:10px;}
-.scroll-hint::before{content:"";display:block;width:30px;height:1px;background:var(--muted2);}
+.stat-num{font-family:'Orbitron',sans-serif;font-size:1.8rem;color:var(--cyan);letter-spacing:2px;text-shadow:0 0 20px rgba(0,229,255,0.3);}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 
 /* FEATURES BAR */
 .features-bar{position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);overflow:hidden;}
-.features-track{display:flex;gap:0;animation:marquee 20s linear infinite;white-space:nowrap;width:max-content;}
+.features-track{display:flex;gap:0;animation:marquee 24s linear infinite;white-space:nowrap;width:max-content;}
 @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.feature-pill{display:inline-flex;align-items:center;gap:10px;padding:18px 40px;border-right:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
-.feature-pill-dot{width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0;}
+.feature-pill{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;border-right:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.feature-pill-dot{width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0;box-shadow:0 0 6px var(--cyan);}
 
 /* DIVIDER */
 .divider{position:relative;z-index:1;display:flex;align-items:center;gap:20px;padding:0 60px;margin:0 auto;max-width:1200px;}
 .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
-.divider-text{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:3px;color:var(--muted2);text-transform:uppercase;white-space:nowrap;}
+.divider-text{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:3px;color:var(--muted2);text-transform:uppercase;white-space:nowrap;}
 
 /* SECTION */
 .section{position:relative;z-index:1;padding:100px 60px;max-width:1200px;margin:0 auto;}
-.section-label{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:4px;color:var(--red);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-.section-label::before{content:"";display:block;width:20px;height:1px;background:var(--red);}
-.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:3px;line-height:1;margin-bottom:16px;}
+.section-label{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.section-label::before{content:"";display:block;width:20px;height:1px;background:var(--cyan);}
+.section-title{font-family:'Orbitron',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:3px;line-height:1;margin-bottom:16px;font-weight:700;}
 .section-desc{color:var(--muted);font-size:1rem;font-weight:400;max-width:500px;line-height:1.7;letter-spacing:0.5px;}
 
 /* PRODUCTS */
 .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;margin-top:60px;}
 .product-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:36px;overflow:hidden;transition:all 0.35s cubic-bezier(0.16,1,0.3,1);}
-.product-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0;transition:opacity 0.3s;}
+.product-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity 0.3s;}
 .product-card:hover::before{opacity:1;}
-.product-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 120%,var(--red-glow),transparent);opacity:0;transition:opacity 0.35s;pointer-events:none;}
+.product-card::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 120%,var(--cyan-glow),transparent);opacity:0;transition:opacity 0.35s;pointer-events:none;}
 .product-card:hover::after{opacity:1;}
-.product-card:hover{border-color:var(--red-border);transform:translateY(-6px);}
-.product-badge{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:24px;}
+.product-card:hover{border-color:var(--cyan-border);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,229,255,0.07);}
+.product-badge{display:inline-flex;align-items:center;gap:6px;font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;margin-bottom:24px;}
 .badge-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
-.badge-red{background:rgba(232,25,44,0.1);color:var(--red);border:1px solid var(--red-border);}
+.badge-cyan{background:var(--cyan-glow);color:var(--cyan);border:1px solid var(--cyan-border);}
+.badge-orange{background:rgba(255,107,53,0.1);color:var(--orange);border:1px solid rgba(255,107,53,0.25);}
 .badge-blue{background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);}
 .badge-yellow{background:rgba(245,158,11,0.1);color:#f59e0b;border:1px solid rgba(245,158,11,0.2);}
 .badge-purple{background:rgba(139,92,246,0.1);color:#8b5cf6;border:1px solid rgba(139,92,246,0.2);}
 .badge-dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
-.product-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:2px;margin-bottom:8px;}
-.product-description{font-size:0.9rem;color:var(--muted);line-height:1.6;letter-spacing:0.3px;margin-bottom:28px;}
+.product-name{font-family:'Orbitron',sans-serif;font-size:1.6rem;letter-spacing:2px;margin-bottom:10px;font-weight:700;}
+.product-description{font-size:0.9rem;color:var(--muted);line-height:1.7;letter-spacing:0.3px;margin-bottom:28px;}
 .product-features{list-style:none;margin-bottom:32px;display:flex;flex-direction:column;gap:10px;}
-.product-features li{display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:500;color:rgba(240,240,240,0.7);letter-spacing:0.5px;}
-.feat-icon{width:16px;height:16px;border-radius:50%;background:rgba(232,25,44,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.product-features li{display:flex;align-items:center;gap:10px;font-size:0.85rem;font-weight:500;color:rgba(232,244,246,0.7);letter-spacing:0.5px;}
+.feat-icon{width:16px;height:16px;border-radius:50%;background:rgba(0,229,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .feat-icon svg{width:8px;height:8px;}
 .product-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:24px;padding-top:24px;border-top:1px solid var(--border);}
-.product-price{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--red);letter-spacing:2px;line-height:1;}
-.product-price-unit{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);letter-spacing:2px;}
-.stock-indicator{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:var(--muted);}
-.stock-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
-.stock-dot.empty{background:var(--muted2);animation:none;}
-.buy-btn{width:100%;padding:15px;background:transparent;border:1px solid var(--red-border);color:var(--white);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;text-align:center;display:inline-block;box-sizing:border-box;text-decoration:none;}
-.buy-btn::before{content:"";position:absolute;inset:0;background:var(--red);transform:translateX(-101%);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
+.product-price{font-family:'Orbitron',sans-serif;font-size:3rem;color:var(--cyan);letter-spacing:2px;line-height:1;text-shadow:0 0 30px rgba(0,229,255,0.25);}
+.product-price-unit{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:2px;}
+.stock-indicator{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);}
+.stock-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;box-shadow:0 0 8px var(--green);}
+.stock-dot.empty{background:var(--muted2);animation:none;box-shadow:none;}
+.buy-btn{width:100%;padding:15px;background:transparent;border:1px solid var(--cyan-border);color:var(--white);font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;text-align:center;display:inline-block;box-sizing:border-box;text-decoration:none;}
+.buy-btn::before{content:"";position:absolute;inset:0;background:var(--cyan);transform:translateX(-101%);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
 .buy-btn span{position:relative;z-index:1;}
 .buy-btn:hover::before{transform:translateX(0);}
-.buy-btn:hover{border-color:var(--red);}
+.buy-btn:hover{border-color:var(--cyan);color:#030809;}
 .buy-btn:active{transform:scale(0.98);}
-.buy-btn.out-of-stock{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+.buy-btn.out-of-stock{opacity:0.35;cursor:not-allowed;pointer-events:none;}
 
 /* STEPS */
 .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
 .step{background:var(--surface);padding:40px 36px;transition:background 0.3s;}
 .step:hover{background:var(--surface2);}
-.step-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--red-border);line-height:1;margin-bottom:20px;letter-spacing:2px;}
-.step-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;margin-bottom:10px;}
-.step-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;letter-spacing:0.3px;}
+.step-num{font-family:'Orbitron',sans-serif;font-size:3.5rem;color:rgba(0,229,255,0.15);line-height:1;margin-bottom:20px;letter-spacing:2px;font-weight:900;}
+.step-title{font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:3px;margin-bottom:10px;font-weight:700;}
+.step-desc{font-size:0.88rem;color:var(--muted);line-height:1.7;letter-spacing:0.3px;}
 
 /* FAQ */
 .faq-list{margin-top:60px;display:flex;flex-direction:column;gap:2px;}
 .faq-item{background:var(--surface);border:1px solid var(--border);border-radius:2px;overflow:hidden;transition:border-color 0.2s;}
 .faq-item:hover{border-color:var(--muted2);}
-.faq-item.open{border-color:var(--red-border);}
+.faq-item.open{border-color:var(--cyan-border);}
 .faq-q{padding:20px 28px;font-size:1rem;font-weight:600;letter-spacing:0.5px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
-.faq-q::after{content:"+";font-family:'JetBrains Mono',monospace;font-size:1.2rem;color:var(--red);transition:transform 0.3s;}
+.faq-q::after{content:"+";font-family:'Share Tech Mono',monospace;font-size:1.2rem;color:var(--cyan);transition:transform 0.3s;}
 .faq-item.open .faq-q::after{transform:rotate(45deg);}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.16,1,0.3,1);font-size:0.9rem;color:var(--muted);line-height:1.7;}
 .faq-a-inner{padding:0 28px 20px;}
@@ -144,12 +147,12 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0 60px;height:64px;displ
 
 /* FOOTER */
 footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60px;display:flex;justify-content:space-between;align-items:center;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;}
-.footer-logo span{color:var(--red);}
-.footer-copy{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted2);text-align:center;}
+.footer-logo{font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:4px;font-weight:700;}
+.footer-logo span{color:var(--cyan);}
+.footer-copy{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--muted2);text-align:center;}
 .footer-links{display:flex;gap:24px;}
-.footer-links a{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted2);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
-.footer-links a:hover{color:var(--white);}
+.footer-links a{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--muted2);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
+.footer-links a:hover{color:var(--cyan);}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1);}
@@ -159,29 +162,29 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 .reveal-delay-3{transition-delay:0.3s;}
 
 /* TOAST */
-.toast{position:fixed;bottom:40px;right:40px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:16px 24px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:1px;z-index:10000;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:320px;}
+.toast{position:fixed;bottom:40px;right:40px;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:16px 24px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:1px;z-index:10000;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none;max-width:320px;}
 .toast.show{transform:translateY(0);opacity:1;}
-.toast.success{border-color:rgba(16,185,129,0.3);color:#10b981;}
-.toast.error{border-color:var(--red-border);color:#ff6b6b;}
-.toast.info{border-color:rgba(59,130,246,0.3);color:#3b82f6;}
+.toast.success{border-color:rgba(0,255,163,0.3);color:var(--green);}
+.toast.error{border-color:rgba(255,80,80,0.3);color:#ff6b6b;}
+.toast.info{border-color:var(--cyan-border);color:var(--cyan);}
 
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════
    ADMIN PANEL
-═══════════════════════════════════════════════════════ */
-#admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9000;display:none;backdrop-filter:blur(12px);}
+═══════════════════════════════════════ */
+#admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:9000;display:none;backdrop-filter:blur(16px);}
 #admin-overlay.active{display:flex;}
 
-/* LOGIN SCREEN */
-#admin-login{width:100%;max-width:420px;margin:auto;padding:48px;background:var(--surface);border:1px solid var(--red-border);border-radius:4px;}
-#admin-login .admin-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;color:var(--red);margin-bottom:4px;}
-#admin-login .admin-subtitle{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:36px;}
+/* LOGIN */
+#admin-login{width:100%;max-width:420px;margin:auto;padding:48px;background:var(--surface);border:1px solid var(--cyan-border);border-radius:4px;box-shadow:0 0 60px rgba(0,229,255,0.06);}
+#admin-login .admin-logo{font-family:'Orbitron',sans-serif;font-size:1.5rem;letter-spacing:4px;color:var(--cyan);margin-bottom:6px;text-shadow:0 0 20px rgba(0,229,255,0.3);}
+#admin-login .admin-subtitle{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:36px;}
 .admin-login-field{margin-bottom:20px;}
-.admin-login-field label{display:block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
-.admin-login-field input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--white);font-family:'JetBrains Mono',monospace;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
-.admin-login-field input:focus{border-color:var(--red-border);}
-#login-error{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#ff6b6b;margin-bottom:16px;min-height:16px;letter-spacing:1px;}
-#admin-login-btn{width:100%;padding:14px;background:var(--red);border:none;border-radius:2px;color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
-#admin-login-btn:hover{background:#ff2233;box-shadow:0 0 24px rgba(232,25,44,0.35);}
+.admin-login-field label{display:block;font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
+.admin-login-field input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--white);font-family:'Share Tech Mono',monospace;font-size:0.85rem;outline:none;transition:border-color 0.2s;}
+.admin-login-field input:focus{border-color:var(--cyan-border);}
+#login-error{font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:#ff6b6b;margin-bottom:16px;min-height:16px;letter-spacing:1px;}
+#admin-login-btn{width:100%;padding:14px;background:var(--cyan);border:none;border-radius:2px;color:#030809;font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;font-weight:700;}
+#admin-login-btn:hover{background:#33ecff;box-shadow:0 0 30px rgba(0,229,255,0.3);}
 
 /* ADMIN PANEL */
 #admin-panel{display:none;width:100%;height:100%;flex-direction:row;}
@@ -190,157 +193,124 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 /* SIDEBAR */
 .admin-sidebar{width:260px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
 .admin-sidebar-header{padding:24px 20px;border-bottom:1px solid var(--border);}
-.admin-sidebar-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:3px;color:var(--red);}
-.admin-sidebar-tag{font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px;}
+.admin-sidebar-logo{font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:3px;color:var(--cyan);text-shadow:0 0 12px rgba(0,229,255,0.3);}
+.admin-sidebar-tag{font-family:'Share Tech Mono',monospace;font-size:0.52rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
 .admin-nav{padding:16px 0;flex:1;overflow-y:auto;}
-.admin-nav-item{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;transition:all 0.2s;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;}
-.admin-nav-item:hover{color:var(--white);background:rgba(255,255,255,0.03);}
-.admin-nav-item.active{color:var(--red);border-left-color:var(--red);background:var(--red-glow);}
+.admin-nav-item{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;transition:all 0.2s;font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-left:2px solid transparent;}
+.admin-nav-item:hover{color:var(--white);background:rgba(0,229,255,0.03);}
+.admin-nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:var(--cyan-glow);}
 .admin-nav-icon{width:16px;height:16px;opacity:0.7;}
 .admin-nav-item.active .admin-nav-icon{opacity:1;}
 .admin-sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);}
-.admin-close-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
-.admin-close-btn:hover{border-color:var(--red-border);color:var(--red);}
+.admin-close-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.admin-close-btn:hover{border-color:var(--cyan-border);color:var(--cyan);}
 
 /* ADMIN CONTENT */
 .admin-content{flex:1;overflow-y:auto;padding:40px;}
 .admin-page{display:none;}
 .admin-page.active{display:block;}
-.admin-page-title{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;margin-bottom:8px;}
-.admin-page-desc{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:36px;}
+.admin-page-title{font-family:'Orbitron',sans-serif;font-size:2rem;letter-spacing:4px;margin-bottom:8px;font-weight:700;}
+.admin-page-desc{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:36px;}
 
 /* ADMIN CARDS */
 .admin-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:24px;margin-bottom:20px;}
-.admin-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
-.admin-card-desc{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:20px;}
+.admin-card-title{font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:2px;margin-bottom:4px;display:flex;align-items:center;gap:10px;font-weight:700;}
+.admin-card-desc{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--muted);margin-bottom:20px;}
 
 /* STATS ROW */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:20px 24px;}
-.stat-card-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
-.stat-card-value{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--red);letter-spacing:2px;line-height:1;}
-.stat-card-sub{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted2);margin-top:4px;}
+.stat-card-label{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
+.stat-card-value{font-family:'Orbitron',sans-serif;font-size:2rem;color:var(--cyan);letter-spacing:2px;line-height:1;text-shadow:0 0 16px rgba(0,229,255,0.2);}
+.stat-card-sub{font-family:'Share Tech Mono',monospace;font-size:0.58rem;color:var(--muted2);margin-top:4px;}
 
 /* FORM ELEMENTS */
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
 .form-row.full{grid-template-columns:1fr;}
 .form-group{display:flex;flex-direction:column;gap:8px;}
-.form-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
-.form-input,.form-select,.form-textarea{padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--white);font-family:'JetBrains Mono',monospace;font-size:0.8rem;outline:none;transition:border-color 0.2s;width:100%;}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--red-border);}
+.form-label{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--white);font-family:'Share Tech Mono',monospace;font-size:0.8rem;outline:none;transition:border-color 0.2s;width:100%;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--cyan-border);}
 .form-input::placeholder,.form-textarea::placeholder{color:var(--muted2);}
-.form-select{appearance:none;cursor:pointer;}
-.form-select option{background:var(--surface);}
-.form-textarea{resize:vertical;min-height:120px;line-height:1.6;}
-.admin-btn{padding:10px 20px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:all 0.2s;border:none;}
-.admin-btn-primary{background:var(--red);color:#fff;}
-.admin-btn-primary:hover{background:#ff2233;box-shadow:0 0 20px rgba(232,25,44,0.3);}
-.admin-btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);}
-.admin-btn-secondary:hover{border-color:var(--muted2);color:var(--white);}
-.admin-btn-danger{background:transparent;color:#ff6b6b;border:1px solid rgba(255,107,107,0.2);}
-.admin-btn-danger:hover{background:rgba(255,107,107,0.1);border-color:rgba(255,107,107,0.4);}
-.admin-btn-success{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
-.admin-btn-success:hover{background:rgba(16,185,129,0.2);}
-.btn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.form-select option{background:var(--surface2);}
+.form-textarea{resize:vertical;min-height:100px;line-height:1.6;}
+
+/* BUTTONS */
+.admin-btn{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border-radius:2px;cursor:pointer;transition:all 0.2s;border:1px solid;}
+.admin-btn-primary{background:var(--cyan);color:#030809;border-color:var(--cyan);font-weight:700;}
+.admin-btn-primary:hover{background:#33ecff;box-shadow:0 0 20px rgba(0,229,255,0.25);}
+.admin-btn-secondary{background:transparent;color:var(--muted);border-color:var(--border);}
+.admin-btn-secondary:hover{color:var(--white);border-color:var(--muted2);}
+.admin-btn-danger{background:transparent;color:#ff6b6b;border-color:rgba(255,80,80,0.3);}
+.admin-btn-danger:hover{background:rgba(255,80,80,0.08);}
+.btn-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 
 /* PANEL LIST */
 .panel-list{display:flex;flex-direction:column;gap:12px;}
-.panel-list-item{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:20px 24px;display:flex;align-items:center;gap:20px;transition:border-color 0.2s;}
-.panel-list-item:hover{border-color:var(--muted2);}
-.panel-list-item.disabled{opacity:0.5;}
-.panel-item-info{flex:1;}
-.panel-item-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;}
-.panel-item-meta{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:1px;color:var(--muted);margin-top:2px;display:flex;gap:16px;}
-.panel-item-stock{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--green);letter-spacing:1px;}
-.panel-item-stock.empty{color:var(--muted2);}
-.panel-actions{display:flex;gap:8px;}
+.panel-row{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.panel-row-info{flex:1;}
+.panel-row-name{font-family:'Orbitron',sans-serif;font-size:0.9rem;letter-spacing:2px;margin-bottom:4px;font-weight:700;}
+.panel-row-meta{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:1px;color:var(--muted);}
+.panel-row-price{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--cyan);letter-spacing:2px;flex-shrink:0;}
+.panel-row-actions{display:flex;gap:8px;flex-shrink:0;}
+.del-row{background:transparent;border:1px solid var(--border);color:var(--muted2);width:28px;height:28px;border-radius:2px;cursor:pointer;transition:all 0.2s;font-size:0.8rem;}
+.del-row:hover{border-color:rgba(255,80,80,0.3);color:#ff6b6b;}
+.edit-row{background:transparent;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:2px;cursor:pointer;transition:all 0.2s;font-size:0.75rem;}
+.edit-row:hover{border-color:var(--cyan-border);color:var(--cyan);}
 
 /* STOCK TABLE */
-.stock-table{width:100%;border-collapse:collapse;margin-top:8px;}
-.stock-table th{font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);}
-.stock-table td{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.03);color:rgba(240,240,240,0.7);}
-.stock-table tr:hover td{background:rgba(255,255,255,0.02);}
-.stock-table .del-row{cursor:pointer;color:var(--muted2);transition:color 0.2s;background:none;border:none;font-size:0.8rem;padding:2px 6px;}
-.stock-table .del-row:hover{color:#ff6b6b;}
+.stock-table{width:100%;border-collapse:collapse;font-family:'Share Tech Mono',monospace;font-size:0.65rem;}
+.stock-table th{padding:10px 14px;text-align:left;color:var(--muted);letter-spacing:1px;border-bottom:1px solid var(--border);}
+.stock-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--muted);}
+.stock-table td:first-child{color:var(--white);font-size:0.7rem;}
 
 /* ORDERS TABLE */
-.orders-table{width:100%;border-collapse:collapse;}
-.orders-table th{font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);}
-.orders-table td{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03);color:rgba(240,240,240,0.7);}
-.orders-table tr:hover td{background:rgba(255,255,255,0.02);}
-.order-id{color:var(--muted2);font-size:0.55rem;}
-.order-cred{color:var(--red);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.orders-table{width:100%;border-collapse:collapse;font-family:'Share Tech Mono',monospace;font-size:0.62rem;}
+.orders-table th{padding:10px 14px;text-align:left;color:var(--muted);letter-spacing:1px;border-bottom:1px solid var(--border);}
+.orders-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:rgba(232,244,246,0.7);}
+.order-id{color:var(--cyan) !important;letter-spacing:1px;}
+.order-cred{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
-/* TOGGLE */
-.toggle{position:relative;display:inline-block;width:42px;height:22px;}
-.toggle input{opacity:0;width:0;height:0;}
-.toggle-slider{position:absolute;inset:0;background:var(--muted2);border-radius:22px;cursor:pointer;transition:0.3s;}
-.toggle-slider::before{content:"";position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:white;border-radius:50%;transition:0.3s;}
-.toggle input:checked + .toggle-slider{background:var(--red);}
-.toggle input:checked + .toggle-slider::before{transform:translateX(20px);}
-
-/* BADGE PREVIEW */
-.badge-preview{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:2px;}
-
-/* COLOR SWATCHES */
-.color-swatches{display:flex;gap:8px;flex-wrap:wrap;}
-.color-swatch{width:28px;height:28px;border-radius:2px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;}
-.color-swatch.selected{border-color:var(--white);transform:scale(1.15);}
-.color-swatch.swatch-green{background:#10b981;}
-.color-swatch.swatch-red{background:#e8192c;}
-.color-swatch.swatch-blue{background:#3b82f6;}
-.color-swatch.swatch-yellow{background:#f59e0b;}
-.color-swatch.swatch-purple{background:#8b5cf6;}
+/* MODAL */
+.admin-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:9500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.admin-modal-overlay.active{display:flex;}
+.admin-modal{background:var(--surface2);border:1px solid var(--cyan-border);border-radius:4px;padding:40px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 0 60px rgba(0,229,255,0.08);}
+.admin-modal-close{position:absolute;top:16px;right:16px;background:transparent;border:none;color:var(--muted);font-size:1rem;cursor:pointer;transition:color 0.2s;}
+.admin-modal-close:hover{color:var(--cyan);}
+.admin-modal-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;letter-spacing:3px;margin-bottom:6px;font-weight:700;}
+.admin-modal-desc{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:28px;}
+.admin-divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
 
 /* FEATURES EDITOR */
 .features-editor{display:flex;flex-direction:column;gap:8px;}
 .feature-input-row{display:flex;gap:8px;align-items:center;}
-.feature-input-row input{flex:1;}
-.remove-feature-btn{padding:8px 10px;background:transparent;border:1px solid rgba(255,107,107,0.2);border-radius:2px;color:#ff6b6b;cursor:pointer;font-size:0.8rem;transition:all 0.2s;flex-shrink:0;}
-.remove-feature-btn:hover{background:rgba(255,107,107,0.1);}
+.feature-input-row input{flex:1;padding:8px 12px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--white);font-family:'Share Tech Mono',monospace;font-size:0.75rem;outline:none;transition:border-color 0.2s;}
+.feature-input-row input:focus{border-color:var(--cyan-border);}
+.feat-del-btn{background:transparent;border:1px solid var(--border);color:var(--muted2);width:28px;height:28px;border-radius:2px;cursor:pointer;transition:all 0.2s;flex-shrink:0;}
+.feat-del-btn:hover{border-color:rgba(255,80,80,0.3);color:#ff6b6b;}
+
+/* COLOR SWATCHES */
+.color-swatches{display:flex;gap:8px;margin-top:4px;}
+.color-swatch{width:22px;height:22px;border-radius:50%;cursor:pointer;transition:transform 0.2s;border:2px solid transparent;}
+.color-swatch.selected{border-color:var(--white);transform:scale(1.15);}
+.swatch-green{background:var(--green);}
+.swatch-cyan{background:var(--cyan);}
+.swatch-orange{background:var(--orange);}
+.swatch-blue{background:#3b82f6;}
+.swatch-yellow{background:#f59e0b;}
+.swatch-purple{background:#8b5cf6;}
+.badge-preview{display:inline-flex;align-items:center;gap:6px;font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:2px;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:40px;color:var(--muted2);}
+.empty-state-icon{font-size:1.5rem;margin-bottom:12px;opacity:0.3;}
+.empty-state-text{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;}
 
 /* SCROLLBAR */
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:2px;}
-::-webkit-scrollbar-thumb:hover{background:var(--muted);}
-
-/* LOADING */
-.loading-overlay{position:absolute;inset:0;background:rgba(6,6,8,0.7);display:flex;align-items:center;justify-content:center;border-radius:4px;z-index:10;}
-.spinner-lg{width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin 0.8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* EMPTY STATE */
-.empty-state{text-align:center;padding:60px 20px;color:var(--muted2);}
-.empty-state-icon{font-size:3rem;margin-bottom:16px;opacity:0.3;}
-.empty-state-text{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;}
-
-/* SECTION DIVIDER */
-.admin-divider{border:none;border-top:1px solid var(--border);margin:24px 0;}
-
-/* MODAL */
-.admin-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
-.admin-modal-overlay.active{display:flex;}
-.admin-modal{background:var(--surface);border:1px solid var(--red-border);border-radius:4px;padding:36px;width:100%;max-width:560px;max-height:85vh;overflow-y:auto;position:relative;}
-.admin-modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;margin-bottom:4px;}
-.admin-modal-desc{font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:28px;}
-.admin-modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:color 0.2s;line-height:1;}
-.admin-modal-close:hover{color:var(--white);}
-
-@media(max-width:900px){
-  nav{padding:0 24px;}
-  .section{padding:80px 24px;}
-  footer{padding:40px 24px;flex-direction:column;gap:24px;text-align:center;}
-  .steps-grid{grid-template-columns:1fr;}
-  .hero-stats{gap:30px;}
-  .stats-row{grid-template-columns:1fr 1fr;}
-  .admin-sidebar{width:220px;}
-  .form-row{grid-template-columns:1fr;}
-}
-@media(max-width:600px){
-  .admin-sidebar{display:none;}
-  .admin-content{padding:20px;}
-}
+::-webkit-scrollbar-thumb:hover{background:var(--cyan-dim);}
 </style>
 </head>
 <body>
@@ -349,136 +319,176 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 <div class="ambient">
   <div class="ambient-blob blob1"></div>
   <div class="ambient-blob blob2"></div>
+  <div class="ambient-blob blob3"></div>
 </div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
+  <a class="nav-logo" href="#">
     <div class="dot"></div>
-    <span style="color:var(--red)" id="nav-site-name">PARADISE</span>&nbsp;<span id="nav-site-name2">GEN</span>
-  </div>
+    <span id="nav-site-name">DISPO</span><span class="logo-accent" id="nav-site-name2">ALTS</span>
+  </a>
   <div class="nav-links">
-    <a href="#">Home</a>
     <a href="#products">Products</a>
-    <a href="#how">Process</a>
-    <a href="#discord-link" target="_blank" class="nav-cta" id="nav-discord">Discord</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#faq">FAQ</a>
+    <a id="nav-discord" href="#" target="_blank">Discord</a>
+    <a href="#" class="nav-cta" onclick="openAdmin();return false;">Admin</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-grid"></div>
-  <div class="hero-eyebrow">&#9652; Instant Account Delivery &#9652;</div>
-  <h1 class="hero-title">
-    <span class="red" id="hero-name1">PARADISE</span><br>
-    <span class="stroke" id="hero-name2">GEN</span>
-  </h1>
-  <p class="hero-sub" id="hero-tagline">Premium Hypixel Accounts &mdash; Delivered Instantly</p>
+  <div class="hero-scanline"></div>
+  <div class="hero-eyebrow">⬡ Instant Delivery · Verified Accounts · 24/7</div>
+  <div class="hero-title">
+    <span id="hero-name1">DISPO</span><br>
+    <span class="accent" id="hero-name2">ALTS</span>
+  </div>
+  <div class="hero-sub" id="hero-tagline">Premium Disposable Accounts — Delivered Instantly</div>
   <div class="hero-cta-group">
-    <a href="#products" class="btn-primary">
-      <span>Browse Products</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+    <a href="#products" class="btn-primary">Browse Products ▸</a>
     <a id="hero-discord-btn" href="#" target="_blank" class="btn-secondary">Join Discord</a>
   </div>
   <div class="hero-stats">
-    <div class="stat-item"><div class="stat-num">2K+</div><div class="stat-label">Orders Served</div></div>
-    <div class="stat-item"><div class="stat-num">&lt;60s</div><div class="stat-label">Delivery Time</div></div>
-    <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Support</div></div>
-  </div>
-  <div class="scroll-hint">Scroll to explore</div>
-</section>
-
-<!-- FEATURES BAR -->
-<div class="features-bar">
-  <div class="features-track">
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Instant Delivery</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Stripe Secured</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Discord Support</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Hypixel Ready</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Fresh Accounts</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Satisfaction Guaranteed</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>24/7 Available</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Low Prices</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Instant Delivery</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Stripe Secured</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Discord Support</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Hypixel Ready</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Fresh Accounts</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Satisfaction Guaranteed</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>24/7 Available</div>
-    <div class="feature-pill"><div class="feature-pill-dot"></div>Low Prices</div>
-  </div>
-</div>
-
-<!-- PRODUCTS -->
-<section class="section" id="products">
-  <div class="section-label">Products</div>
-  <h2 class="section-title reveal">Choose Your Account</h2>
-  <p class="section-desc reveal reveal-delay-1">Premium accounts delivered directly to your email within seconds of purchase. Secure, simple, instant.</p>
-  <div class="products-grid" id="products-grid">
-    <!-- Loaded dynamically -->
-    <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:2px;">
-      LOADING PRODUCTS...
+    <div class="stat-item">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Sold</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">&lt;5s</div>
+      <div class="stat-label">Delivery</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Support</div>
     </div>
   </div>
 </section>
 
-<div class="divider"><div class="divider-line"></div><div class="divider-text">How it works</div><div class="divider-line"></div></div>
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="features-track" id="features-track">
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Instant Delivery</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Verified Accounts</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Secure Checkout</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Automated System</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>24/7 Online</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Low Prices</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Email Delivery</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Instant Delivery</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Verified Accounts</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Secure Checkout</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Automated System</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>24/7 Online</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Low Prices</div>
+    <div class="feature-pill"><div class="feature-pill-dot"></div>Email Delivery</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" style="position:relative;z-index:1;">
+  <div class="divider" style="padding-top:80px;">
+    <div class="divider-line"></div>
+    <div class="divider-text">// Products</div>
+    <div class="divider-line"></div>
+  </div>
+  <div class="section">
+    <div class="section-label">Shop</div>
+    <div class="section-title reveal">Our <span style="color:var(--cyan)">Products</span></div>
+    <div class="section-desc reveal reveal-delay-1">Two premium account types, always in stock. Instant delivery to your email after checkout.</div>
+    <div class="products-grid" id="products-grid">
+      <!-- Populated by JS -->
+      <div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;">LOADING PRODUCTS...</div>
+    </div>
+  </div>
+</div>
 
 <!-- HOW IT WORKS -->
-<section class="section" id="how">
-  <div class="section-label">Process</div>
-  <h2 class="section-title reveal">Three Simple Steps</h2>
-  <div class="steps-grid reveal reveal-delay-1">
-    <div class="step"><div class="step-num">01</div><div class="step-title">Select &amp; Pay</div><div class="step-desc">Choose your account type and complete the secure Stripe checkout. Your payment is encrypted end-to-end.</div></div>
-    <div class="step"><div class="step-num">02</div><div class="step-title">Auto Delivery</div><div class="step-desc">Account credentials are automatically sent to your email within seconds of payment confirmation.</div></div>
-    <div class="step"><div class="step-num">03</div><div class="step-title">Start Playing</div><div class="step-desc">Log in and start using your account immediately. Join our Discord if you need any support.</div></div>
+<div id="how-it-works" style="position:relative;z-index:1;background:var(--surface);">
+  <div class="section">
+    <div class="section-label">Process</div>
+    <div class="section-title reveal">How It <span style="color:var(--cyan)">Works</span></div>
+    <div class="steps-grid reveal reveal-delay-1">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Choose a Product</div>
+        <div class="step-desc">Browse our two account types. Both are always freshly stocked and ready to go.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Checkout Securely</div>
+        <div class="step-desc">Pay via Stripe — fast, encrypted, and trusted. No account needed.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Instant Delivery</div>
+        <div class="step-desc">Your credentials are emailed to you in under 5 seconds after payment clears.</div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- FAQ -->
-<section class="section">
-  <div class="section-label">FAQ</div>
-  <h2 class="section-title reveal">Common Questions</h2>
-  <div class="faq-list reveal reveal-delay-1">
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How fast will I receive my account?</div><div class="faq-a"><div class="faq-a-inner">Delivery is instant — credentials are sent to your email address automatically within seconds of your payment being confirmed by Stripe.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my payment secure?</div><div class="faq-a"><div class="faq-a-inner">Yes. All payments are processed by Stripe, which is PCI DSS Level 1 certified. We never store your card information.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What's the difference between the two account types?</div><div class="faq-a"><div class="faq-a-inner">Unbanned accounts have a clean record and full access to Hypixel. Banned accounts are restricted from Hypixel specifically but work on all other Minecraft servers — perfect for alts.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where do I get support?</div><div class="faq-a"><div class="faq-a-inner">Join our Discord server for live support. Our team is active daily and will help resolve any issues quickly.</div></div></div>
+<div id="faq" style="position:relative;z-index:1;">
+  <div class="section">
+    <div class="section-label">Support</div>
+    <div class="section-title reveal">FAQ</div>
+    <div class="faq-list reveal reveal-delay-1">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How fast is delivery?</div>
+        <div class="faq-a"><div class="faq-a-inner">Delivery is fully automated. Once payment is confirmed, you'll receive your account credentials via email within seconds.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What payment methods are accepted?</div>
+        <div class="faq-a"><div class="faq-a-inner">We use Stripe for secure card processing. All major credit and debit cards are accepted.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What happens if I don't receive my account?</div>
+        <div class="faq-a"><div class="faq-a-inner">Check your spam folder first. If you still haven't received anything, reach out on our Discord and we'll resolve it immediately.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Are accounts guaranteed to work?</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — all accounts are verified before being added to stock. If you experience any issues, contact us on Discord for a replacement.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do you offer bulk orders?</div>
+        <div class="faq-a"><div class="faq-a-inner">Yes! For bulk orders of 10+ accounts, message us on Discord for a custom deal and pricing.</div></div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><span id="footer-name">PARADISE</span> GEN</div>
-  <div class="footer-copy">&copy; 2025 <span id="footer-copy-name">Paradise Gen</span> &mdash; All rights reserved</div>
+  <div class="footer-logo"><span id="footer-name">DISPO</span>ALTS</div>
+  <div class="footer-copy">© 2025 <span id="footer-copy-name">Dispo Alts</span> · All rights reserved</div>
   <div class="footer-links">
-    <a href="#" id="footer-discord">Discord</a>
-    <a href="#">Terms</a>
-    <a href="#">Contact</a>
+    <a id="footer-discord" href="#" target="_blank">Discord</a>
+    <a href="#" onclick="openAdmin();return false;">Admin</a>
   </div>
 </footer>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ═══════════════════════════════════════════════════════
-     ADMIN PANEL
-═══════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════
+     ADMIN OVERLAY
+═══════════════════════════════════ -->
 <div id="admin-overlay">
 
   <!-- LOGIN -->
   <div id="admin-login">
-    <div class="admin-logo">&#9632; ADMIN ACCESS</div>
-    <div class="admin-subtitle">Paradise Gen Control Panel</div>
+    <div class="admin-logo">⬡ ADMIN</div>
+    <div class="admin-subtitle">Dispo Alts Control Panel</div>
     <div class="admin-login-field">
       <label>Username</label>
-      <input type="text" id="admin-username" placeholder="Enter username" autocomplete="off">
+      <input type="text" id="admin-username" placeholder="admin" autocomplete="off" onkeydown="if(event.key==='Enter')doAdminLogin()">
     </div>
     <div class="admin-login-field">
       <label>Password</label>
-      <input type="password" id="admin-password" placeholder="Enter password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+      <input type="password" id="admin-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doAdminLogin()">
     </div>
     <div id="login-error"></div>
     <button id="admin-login-btn" onclick="doAdminLogin()">ACCESS PANEL</button>
@@ -486,12 +496,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 
   <!-- PANEL -->
   <div id="admin-panel">
-
-    <!-- SIDEBAR -->
     <div class="admin-sidebar">
       <div class="admin-sidebar-header">
-        <div class="admin-sidebar-logo">&#9632; ADMIN</div>
-        <div class="admin-sidebar-tag">Paradise Gen Control</div>
+        <div class="admin-sidebar-logo">⬡ ADMIN</div>
+        <div class="admin-sidebar-tag">Dispo Alts Control</div>
       </div>
       <nav class="admin-nav">
         <div class="admin-nav-item active" onclick="showPage('dashboard')" data-page="dashboard">
@@ -516,11 +524,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
         </div>
       </nav>
       <div class="admin-sidebar-footer">
-        <button class="admin-close-btn" onclick="closeAdmin()">&#10005; CLOSE PANEL</button>
+        <button class="admin-close-btn" onclick="closeAdmin()">✕ CLOSE PANEL</button>
       </div>
     </div>
 
-    <!-- CONTENT -->
     <div class="admin-content">
 
       <!-- DASHBOARD -->
@@ -529,7 +536,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
         <div class="admin-page-desc">Overview of your store</div>
         <div class="stats-row" id="dash-stats">
           <div class="stat-card"><div class="stat-card-label">Total Products</div><div class="stat-card-value" id="stat-products">0</div><div class="stat-card-sub">active panels</div></div>
-          <div class="stat-card"><div class="stat-card-label">Total Stock</div><div class="stat-card-value" id="stat-stock">0</div><div class="stat-card-sub">keys available</div></div>
+          <div class="stat-card"><div class="stat-card-label">Total Stock</div><div class="stat-card-value" id="stat-stock">0</div><div class="stat-card-sub">accounts available</div></div>
           <div class="stat-card"><div class="stat-card-label">Orders</div><div class="stat-card-value" id="stat-orders">0</div><div class="stat-card-sub">fulfilled</div></div>
           <div class="stat-card"><div class="stat-card-label">Revenue</div><div class="stat-card-value" id="stat-revenue">$0</div><div class="stat-card-sub">total earned</div></div>
         </div>
@@ -551,7 +558,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
         <div class="admin-page-desc">Manage your product panels</div>
         <div class="btn-row" style="margin-bottom:24px;">
           <button class="admin-btn admin-btn-primary" onclick="openAddPanelModal()">+ ADD PRODUCT</button>
-          <button class="admin-btn admin-btn-secondary" onclick="loadAdminData()">&#8635; REFRESH</button>
+          <button class="admin-btn admin-btn-secondary" onclick="loadAdminData()">↺ REFRESH</button>
         </div>
         <div class="panel-list" id="panel-list"></div>
       </div>
@@ -571,21 +578,21 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
           <div class="admin-card">
             <div class="admin-card-title">Add Stock</div>
             <div class="admin-card-desc">Paste accounts below — one per line (e.g. email:password)</div>
-            <textarea class="form-textarea" id="stock-input" placeholder="email1@example.com:password1&#10;email2@example.com:password2&#10;email3@example.com:password3" style="min-height:160px;font-size:0.75rem;"></textarea>
+            <textarea class="form-textarea" id="stock-input" placeholder="email1@example.com:password1&#10;email2@example.com:password2" style="min-height:160px;font-size:0.75rem;"></textarea>
             <div class="btn-row" style="margin-top:12px;">
               <button class="admin-btn admin-btn-primary" onclick="submitStock()">+ ADD LINES</button>
-              <span id="stock-add-feedback" style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--green);letter-spacing:1px;"></span>
+              <span id="stock-add-feedback" style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:var(--green);letter-spacing:1px;"></span>
             </div>
           </div>
           <div class="admin-card">
-            <div class="admin-card-title">Current Stock <span id="stock-count-badge" style="font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--red);margin-left:10px;">0 items</span></div>
-            <div class="admin-card-desc">All available keys for this product</div>
+            <div class="admin-card-title">Current Stock <span id="stock-count-badge" style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--cyan);margin-left:10px;">0 items</span></div>
+            <div class="admin-card-desc">All available accounts for this product</div>
             <div class="btn-row" style="margin-bottom:16px;">
-              <button class="admin-btn admin-btn-secondary" onclick="loadStockView()">&#8635; REFRESH</button>
-              <button class="admin-btn admin-btn-danger" onclick="clearStock()">&#10005; CLEAR ALL</button>
+              <button class="admin-btn admin-btn-secondary" onclick="loadStockView()">↺ REFRESH</button>
+              <button class="admin-btn admin-btn-danger" onclick="clearStock()">✕ CLEAR ALL</button>
             </div>
             <div id="stock-table-container">
-              <div class="empty-state"><div class="empty-state-icon">&#9632;</div><div class="empty-state-text">No stock yet</div></div>
+              <div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No stock yet</div></div>
             </div>
           </div>
         </div>
@@ -596,11 +603,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
         <div class="admin-page-title">ORDERS</div>
         <div class="admin-page-desc">All fulfilled orders</div>
         <div class="btn-row" style="margin-bottom:24px;">
-          <button class="admin-btn admin-btn-secondary" onclick="loadAdminData()">&#8635; REFRESH</button>
+          <button class="admin-btn admin-btn-secondary" onclick="loadAdminData()">↺ REFRESH</button>
         </div>
         <div class="admin-card" style="overflow-x:auto;">
           <div id="orders-table-container">
-            <div class="empty-state"><div class="empty-state-icon">&#9632;</div><div class="empty-state-text">No orders yet</div></div>
+            <div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No orders yet</div></div>
           </div>
         </div>
       </div>
@@ -613,7 +620,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
           <div class="admin-card-title">Site Info</div>
           <div class="admin-card-desc">Branding and display settings</div>
           <div class="form-row">
-            <div class="form-group"><label class="form-label">Site Name</label><input class="form-input" id="s-siteName" placeholder="PARADISE GEN"></div>
+            <div class="form-group"><label class="form-label">Site Name</label><input class="form-input" id="s-siteName" placeholder="DISPO ALTS"></div>
             <div class="form-group"><label class="form-label">Tagline</label><input class="form-input" id="s-tagline" placeholder="Premium accounts..."></div>
           </div>
           <div class="form-row full">
@@ -623,7 +630,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
         </div>
         <div class="admin-card">
           <div class="admin-card-title">Email Delivery (SMTP)</div>
-          <div class="admin-card-desc">Configure automatic email delivery of credentials after purchase</div>
+          <div class="admin-card-desc">Configure automatic email delivery after purchase</div>
           <div class="form-row">
             <div class="form-group"><label class="form-label">SMTP Host</label><input class="form-input" id="s-emailHost" placeholder="smtp.gmail.com"></div>
             <div class="form-group"><label class="form-label">SMTP Port</label><input class="form-input" id="s-emailPort" placeholder="587" type="number"></div>
@@ -640,7 +647,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
         <div class="admin-card">
           <div class="admin-card-title" style="color:#ff6b6b;">Danger Zone</div>
           <div class="admin-card-desc">Destructive actions — cannot be undone</div>
-          <button class="admin-btn admin-btn-danger" onclick="if(confirm('Clear ALL orders? This cannot be undone.'))clearAllOrders()">CLEAR ALL ORDERS</button>
+          <button class="admin-btn admin-btn-danger" onclick="if(confirm('Clear ALL orders?'))clearAllOrders()">CLEAR ALL ORDERS</button>
         </div>
       </div>
 
@@ -651,16 +658,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 <!-- ADD/EDIT PANEL MODAL -->
 <div class="admin-modal-overlay" id="panel-modal">
   <div class="admin-modal">
-    <button class="admin-modal-close" onclick="closePanelModal()">&#10005;</button>
+    <button class="admin-modal-close" onclick="closePanelModal()">✕</button>
     <div class="admin-modal-title" id="panel-modal-title">ADD PRODUCT</div>
-    <div class="admin-modal-desc">Configure your new product panel</div>
-
+    <div class="admin-modal-desc">Configure your product panel</div>
     <input type="hidden" id="edit-panel-id">
-
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Product Name</label>
-        <input class="form-input" id="p-name" placeholder="Unbanned Hypixel">
+        <input class="form-input" id="p-name" placeholder="Dispo Account">
       </div>
       <div class="form-group">
         <label class="form-label">Price (USD)</label>
@@ -676,19 +681,20 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Badge Label</label>
-        <input class="form-input" id="p-badge" placeholder="Unbanned" oninput="updateBadgePreview()">
+        <input class="form-input" id="p-badge" placeholder="In Stock" oninput="updateBadgePreview()">
       </div>
       <div class="form-group">
         <label class="form-label">Badge Color</label>
         <div class="color-swatches" id="badge-swatches">
           <div class="color-swatch swatch-green selected" data-color="green" onclick="selectBadgeColor('green',this)"></div>
-          <div class="color-swatch swatch-red" data-color="red" onclick="selectBadgeColor('red',this)"></div>
+          <div class="color-swatch swatch-cyan" data-color="cyan" onclick="selectBadgeColor('cyan',this)"></div>
+          <div class="color-swatch swatch-orange" data-color="orange" onclick="selectBadgeColor('orange',this)"></div>
           <div class="color-swatch swatch-blue" data-color="blue" onclick="selectBadgeColor('blue',this)"></div>
           <div class="color-swatch swatch-yellow" data-color="yellow" onclick="selectBadgeColor('yellow',this)"></div>
           <div class="color-swatch swatch-purple" data-color="purple" onclick="selectBadgeColor('purple',this)"></div>
         </div>
         <div id="badge-preview-row" style="margin-top:8px;">
-          <span class="badge-preview badge-green" id="badge-preview-el"><span class="badge-dot"></span><span id="badge-preview-text">Unbanned</span></span>
+          <span class="badge-preview badge-green" id="badge-preview-el"><span class="badge-dot"></span><span id="badge-preview-text">In Stock</span></span>
         </div>
       </div>
     </div>
@@ -701,7 +707,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
     <div class="form-group" style="margin-bottom:16px;">
       <label class="form-label">Features (bullet points)</label>
       <div class="features-editor" id="features-editor"></div>
-      <button class="admin-btn admin-btn-secondary" style="margin-top:8px;font-size:0.6rem;" onclick="addFeatureInput('')">+ ADD FEATURE</button>
+      <button class="admin-btn admin-btn-secondary" style="margin-top:8px;font-size:0.58rem;" onclick="addFeatureInput('')">+ ADD FEATURE</button>
     </div>
     <hr class="admin-divider">
     <div class="btn-row">
@@ -712,25 +718,56 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:60
 </div>
 
 <script>
-// ─── CONFIG ─────────────────────────────────────────────────────────────────
-const API = 'https://d566-64-25-12-74.ngrok-free.app'; // Change to your server URL
-const ADMIN_USER = '1havedr';
-const ADMIN_PASS = 'Asshole1313';
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+const API = 'http://localhost:3000'; // Change to your backend URL
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'admin123';
 
-// ─── STATE ──────────────────────────────────────────────────────────────────
+// ─── LOCAL STATE (fallback when server offline) ───────────────────────────────
+// Default 2 products for demo
+const DEFAULT_PANELS = [
+  {
+    id: 'panel_1',
+    name: 'Standard Dispo',
+    description: 'Fresh disposable account ready to use. Clean history, unverified, perfect for casual use.',
+    badge: 'In Stock',
+    badgeType: 'green',
+    price: '1.99',
+    features: ['Clean account history', 'Email delivery <5s', 'Works on all platforms', 'Never previously used'],
+    stockCount: 0,
+    stripeLink: ''
+  },
+  {
+    id: 'panel_2',
+    name: 'Premium Dispo',
+    description: 'Aged premium account with history and verified email. Higher trust score for advanced usage.',
+    badge: 'Premium',
+    badgeType: 'cyan',
+    price: '4.99',
+    features: ['30+ day aged account', 'Email verified', 'Higher trust score', 'Instant email delivery'],
+    stockCount: 0,
+    stripeLink: ''
+  }
+];
+
 let adminAuthed = false;
 let adminData = null;
 let selectedBadgeColor = 'green';
 let editingPanelId = null;
+let localPanels = JSON.parse(localStorage.getItem('dispo_panels') || 'null') || DEFAULT_PANELS;
+let localOrders = JSON.parse(localStorage.getItem('dispo_orders') || '[]');
+let localStock = JSON.parse(localStorage.getItem('dispo_stock') || '{}');
+let localSettings = JSON.parse(localStorage.getItem('dispo_settings') || '{}');
+let serverOnline = false;
 
-// ─── SCROLL REVEAL ───────────────────────────────────────────────────────────
+// ─── SCROLL REVEAL ────────────────────────────────────────────────────────────
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('revealed');observer.unobserve(e.target);} });
 }, { threshold: 0.12 });
 revealEls.forEach(el => observer.observe(el));
 
-// ─── FAQ ────────────────────────────────────────────────────────────────────
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
 function toggleFaq(el) {
   const item = el.parentElement;
   const isOpen = item.classList.contains('open');
@@ -738,7 +775,7 @@ function toggleFaq(el) {
   if (!isOpen) item.classList.add('open');
 }
 
-// ─── TOAST ──────────────────────────────────────────────────────────────────
+// ─── TOAST ───────────────────────────────────────────────────────────────────
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -747,24 +784,48 @@ function showToast(msg, type='success') {
   t._timeout = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-// ─── API HELPERS ─────────────────────────────────────────────────────────────
+// ─── ESCAPE HTML ─────────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── SAVE LOCAL ───────────────────────────────────────────────────────────────
+function saveLocal() {
+  localStorage.setItem('dispo_panels', JSON.stringify(localPanels));
+  localStorage.setItem('dispo_orders', JSON.stringify(localOrders));
+  localStorage.setItem('dispo_stock', JSON.stringify(localStock));
+  localStorage.setItem('dispo_settings', JSON.stringify(localSettings));
+}
+
+// ─── API HELPERS ──────────────────────────────────────────────────────────────
 async function apiFetch(path, opts={}) {
   const headers = { 'Content-Type': 'application/json', 'username': ADMIN_USER, 'password': ADMIN_PASS, ...(opts.headers||{}) };
   const res = await fetch(API + path, { ...opts, headers });
   return res.json();
 }
 
-// ─── LOAD PUBLIC PANELS ──────────────────────────────────────────────────────
+// ─── LOAD PUBLIC PANELS ───────────────────────────────────────────────────────
 async function loadPublicPanels() {
   try {
-    const data = await fetch(`${API}/api/panels`).then(r => r.json());
-    renderPublicPanels(data.panels);
-    applySettings(data.settings);
+    const data = await Promise.race([
+      fetch(`${API}/api/panels`).then(r => r.json()),
+      new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 2000))
+    ]);
+    serverOnline = true;
+    // Sync local from server
+    localPanels = data.panels || localPanels;
+    if(data.settings) localSettings = data.settings;
+    renderPublicPanels(data.panels || localPanels);
+    applySettings(data.settings || localSettings);
   } catch(e) {
-    document.getElementById('products-grid').innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:2px;">
-        SERVER OFFLINE — Start the backend server
-      </div>`;
+    serverOnline = false;
+    // Update stock counts from localStock
+    const panels = localPanels.map(p => ({
+      ...p,
+      stockCount: (localStock[p.id] || []).length
+    }));
+    renderPublicPanels(panels);
+    applySettings(localSettings);
   }
 }
 
@@ -772,11 +833,11 @@ function applySettings(s) {
   if(!s) return;
   if(s.siteName) {
     const parts = s.siteName.split(' ');
-    document.getElementById('nav-site-name').textContent = parts[0]||'PARADISE';
-    document.getElementById('nav-site-name2').textContent = parts.slice(1).join(' ')||'GEN';
-    document.getElementById('hero-name1').textContent = parts[0]||'PARADISE';
-    document.getElementById('hero-name2').textContent = parts.slice(1).join(' ')||'GEN';
-    document.getElementById('footer-name').textContent = parts[0]||'PARADISE';
+    document.getElementById('nav-site-name').textContent = parts[0]||'DISPO';
+    document.getElementById('nav-site-name2').textContent = parts.slice(1).join(' ')||'ALTS';
+    document.getElementById('hero-name1').textContent = parts[0]||'DISPO';
+    document.getElementById('hero-name2').textContent = parts.slice(1).join(' ')||'ALTS';
+    document.getElementById('footer-name').textContent = parts[0]||'DISPO';
     document.getElementById('footer-copy-name').textContent = s.siteName;
     document.title = s.siteName + ' — Instant Delivery';
   }
@@ -791,21 +852,19 @@ function applySettings(s) {
 function renderPublicPanels(panels) {
   const grid = document.getElementById('products-grid');
   if(!panels || panels.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:2px;">NO PRODUCTS AVAILABLE</div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px;color:var(--muted);font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;">NO PRODUCTS AVAILABLE</div>`;
     return;
   }
   grid.innerHTML = panels.map(p => {
-    const inStock = p.stockCount > 0;
+    const inStock = (p.stockCount||0) > 0;
     const featHTML = (p.features||[]).map(f => `
       <li>
         <div class="feat-icon">
-          <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="#e8192c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3 5.5L6.5 2" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         ${escHtml(f)}
       </li>`).join('');
-
     const stripeUrl = p.stripeLink ? `${p.stripeLink}${p.stripeLink.includes('?')?'&':'?'}client_reference_id=${encodeURIComponent(p.id)}` : '#';
-
     return `
     <div class="product-card reveal">
       <div class="product-badge badge-${p.badgeType||'green'}">
@@ -820,35 +879,28 @@ function renderPublicPanels(panels) {
         <span>${inStock ? `${p.stockCount} IN STOCK` : 'OUT OF STOCK'}</span>
       </div>
       <div class="product-price-row">
-        <div class="product-price">$${parseFloat(p.price).toFixed(2)}</div>
+        <div class="product-price">$${parseFloat(p.price||0).toFixed(2)}</div>
         <div class="product-price-unit">USD / account</div>
       </div>
-      <a href="${inStock ? stripeUrl : '#'}" class="buy-btn${inStock?'':' out-of-stock'}" ${inStock?'target="_blank"':''}>
-        <span>${inStock ? 'Purchase Now' : 'Out of Stock'}</span>
+      <a href="${inStock && p.stripeLink ? stripeUrl : '#'}" class="buy-btn${(inStock && p.stripeLink)?'':' out-of-stock'}" ${(inStock && p.stripeLink)?'target="_blank"':''}>
+        <span>${inStock ? (p.stripeLink ? 'Purchase Now' : 'Set Stripe Link') : 'Out of Stock'}</span>
       </a>
     </div>`;
   }).join('');
-
-  // Re-observe new cards
   document.querySelectorAll('.product-card.reveal:not(.revealed)').forEach(el => observer.observe(el));
 }
 
-function escHtml(str) {
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// ─── SECRET KEYBIND ──────────────────────────────────────────────────────────
+// ─── SECRET KEYBIND ───────────────────────────────────────────────────────────
 const keysHeld = new Set();
 document.addEventListener('keydown', e => {
   keysHeld.add(e.key.toLowerCase());
   if(keysHeld.has('control') && keysHeld.has('alt') && keysHeld.has('l')) {
-    e.preventDefault();
-    openAdmin();
+    e.preventDefault(); openAdmin();
   }
 });
 document.addEventListener('keyup', e => keysHeld.delete(e.key.toLowerCase()));
 
-// ─── ADMIN OPEN/CLOSE ────────────────────────────────────────────────────────
+// ─── ADMIN OPEN/CLOSE ─────────────────────────────────────────────────────────
 function openAdmin() {
   document.getElementById('admin-overlay').classList.add('active');
   if(!adminAuthed) {
@@ -858,37 +910,38 @@ function openAdmin() {
     showAdminPanel();
   }
 }
-
 function closeAdmin() {
   document.getElementById('admin-overlay').classList.remove('active');
 }
-
 document.getElementById('admin-overlay').addEventListener('click', e => {
   if(e.target === document.getElementById('admin-overlay')) closeAdmin();
 });
 
-// ─── ADMIN LOGIN ─────────────────────────────────────────────────────────────
+// ─── ADMIN LOGIN ──────────────────────────────────────────────────────────────
 async function doAdminLogin() {
   const u = document.getElementById('admin-username').value.trim();
   const p = document.getElementById('admin-password').value;
   const errEl = document.getElementById('login-error');
   errEl.textContent = '';
-
+  // Try server first
   try {
-    const res = await fetch(`${API}/api/admin/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: u, password: p })
-    });
+    const res = await Promise.race([
+      fetch(`${API}/api/admin/login`, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({username:u, password:p})
+      }),
+      new Promise((_,rej) => setTimeout(() => rej(new Error('timeout')), 2000))
+    ]);
     if(res.ok) {
-      adminAuthed = true;
-      showAdminPanel();
-    } else {
-      errEl.textContent = 'Invalid username or password';
-      document.getElementById('admin-password').value = '';
+      adminAuthed = true; showAdminPanel(); return;
     }
-  } catch(e) {
-    errEl.textContent = 'Cannot connect to server — is it running?';
+  } catch(e) { /* server offline, fall through to local */ }
+  // Local auth fallback
+  if(u === ADMIN_USER && p === ADMIN_PASS) {
+    adminAuthed = true; showAdminPanel();
+  } else {
+    errEl.textContent = 'Invalid username or password';
+    document.getElementById('admin-password').value = '';
   }
 }
 
@@ -898,99 +951,93 @@ function showAdminPanel() {
   loadAdminData();
 }
 
-// ─── LOAD ADMIN DATA ─────────────────────────────────────────────────────────
-async function loadAdminData() {
-  try {
-    adminData = await apiFetch('/api/admin/data');
-    renderDashboard();
-    renderPanelList();
-    populateStockSelect();
-    renderOrders();
-    populateSettings();
-  } catch(e) {
-    showToast('Failed to load data', 'error');
-  }
-}
-
-// ─── NAV PAGES ───────────────────────────────────────────────────────────────
+// ─── ADMIN NAV ────────────────────────────────────────────────────────────────
 function showPage(name) {
   document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   document.querySelector(`[data-page="${name}"]`).classList.add('active');
+  if(name==='panels') renderPanelList();
+  if(name==='stock') populateStockSelect();
+  if(name==='orders') renderOrders();
+  if(name==='settings') populateSettings();
 }
 
-// ─── DASHBOARD ───────────────────────────────────────────────────────────────
+// ─── LOAD ADMIN DATA ──────────────────────────────────────────────────────────
+async function loadAdminData() {
+  // Build adminData from local store (or server if available)
+  try {
+    if(serverOnline) {
+      const data = await apiFetch('/api/admin/data');
+      adminData = data;
+    } else { throw new Error('offline'); }
+  } catch(e) {
+    adminData = {
+      panels: localPanels.map(p => ({...p, stockCount: (localStock[p.id]||[]).length})),
+      orders: localOrders,
+      settings: localSettings,
+      stock: localStock
+    };
+  }
+  renderDashboard();
+}
+
 function renderDashboard() {
   if(!adminData) return;
-  const { panels, orders } = adminData;
-  const totalStock = panels.reduce((s,p) => s+(p.stock||[]).length, 0);
-  const totalRevenue = orders.reduce((s,o) => s+parseFloat(o.amount||0), 0);
-
-  document.getElementById('stat-products').textContent = panels.filter(p=>p.enabled).length;
+  const panels = adminData.panels||[];
+  const orders = adminData.orders||[];
+  const stock = adminData.stock || localStock;
+  const totalStock = panels.reduce((s,p) => s + (p.stockCount||0), 0);
+  const revenue = orders.reduce((s,o) => s + parseFloat(o.amount||0), 0);
+  document.getElementById('stat-products').textContent = panels.length;
   document.getElementById('stat-stock').textContent = totalStock;
   document.getElementById('stat-orders').textContent = orders.length;
-  document.getElementById('stat-revenue').textContent = '$' + totalRevenue.toFixed(2);
+  document.getElementById('stat-revenue').textContent = '$' + revenue.toFixed(2);
 
   // Stock overview
-  const ol = document.getElementById('stock-overview-list');
-  ol.innerHTML = panels.length ? panels.map(p => `
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);">
-      <div>
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:1px;">${escHtml(p.name)}</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);margin-left:10px;">${p.enabled?'ACTIVE':'HIDDEN'}</span>
-      </div>
-      <span class="panel-item-stock${(p.stock||[]).length===0?' empty':''}" style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;">
-        ${(p.stock||[]).length} keys
-      </span>
-    </div>`).join('') : '<div class="empty-state"><div class="empty-state-text">No products</div></div>';
+  const sol = document.getElementById('stock-overview-list');
+  if(!panels.length) { sol.innerHTML = '<div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No products</div></div>'; }
+  else {
+    sol.innerHTML = panels.map(p => `
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);">
+        <span style="font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:1px;">${escHtml(p.name)}</span>
+        <span style="font-family:'Orbitron',sans-serif;font-size:1rem;color:${p.stockCount>0?'var(--cyan)':'var(--muted2)'};">${p.stockCount||0}</span>
+      </div>`).join('');
+  }
 
   // Recent orders
-  const rl = document.getElementById('recent-orders-list');
-  const recent = [...(orders||[])].reverse().slice(0,5);
-  rl.innerHTML = recent.length ? `
-    <table class="orders-table"><thead><tr><th>Product</th><th>Email</th><th>Amount</th><th>Time</th></tr></thead><tbody>
-    ${recent.map(o => `<tr>
-      <td>${escHtml(o.panelName||o.panelId)}</td>
-      <td>${escHtml(o.email||'—')}</td>
-      <td style="color:var(--green);">$${parseFloat(o.amount||0).toFixed(2)}</td>
-      <td style="color:var(--muted2);">${new Date(o.timestamp).toLocaleString()}</td>
-    </tr>`).join('')}
-    </tbody></table>` : '<div class="empty-state" style="padding:30px 0;"><div class="empty-state-text">No orders yet</div></div>';
+  const rol = document.getElementById('recent-orders-list');
+  const recent = [...orders].reverse().slice(0,5);
+  if(!recent.length) { rol.innerHTML = '<div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No orders</div></div>'; }
+  else {
+    rol.innerHTML = recent.map(o => `
+      <div style="display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:0.6rem;">
+        <span style="color:var(--cyan);">#${escHtml((o.id||'').slice(-6))}</span>
+        <span style="flex:1;">${escHtml(o.panelName||'')}</span>
+        <span style="color:var(--green);">$${parseFloat(o.amount||0).toFixed(2)}</span>
+      </div>`).join('');
+  }
 }
 
-// ─── PANEL LIST ───────────────────────────────────────────────────────────────
+// ─── PANELS ───────────────────────────────────────────────────────────────────
 function renderPanelList() {
-  if(!adminData) return;
-  const list = document.getElementById('panel-list');
-  if(!adminData.panels.length) {
-    list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#9632;</div><div class="empty-state-text">No products yet — add one</div></div>';
-    return;
-  }
-  list.innerHTML = adminData.panels.map(p => `
-    <div class="panel-list-item${p.enabled?'':' disabled'}">
-      <div>
-        <span class="product-badge badge-${p.badgeType||'green'}" style="margin-bottom:0;">
-          <span class="badge-dot"></span>${escHtml(p.badge||p.name)}
-        </span>
+  const panels = (adminData?.panels||localPanels).map(p => ({...p, stockCount: (localStock[p.id]||[]).length}));
+  const el = document.getElementById('panel-list');
+  if(!panels.length) { el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No products yet</div></div>'; return; }
+  el.innerHTML = panels.map(p => `
+    <div class="panel-row">
+      <div class="panel-row-info">
+        <div class="panel-row-name">${escHtml(p.name)}</div>
+        <div class="panel-row-meta">${escHtml(p.description||'')} · ${p.stockCount||0} in stock</div>
       </div>
-      <div class="panel-item-info">
-        <div class="panel-item-name">${escHtml(p.name)}</div>
-        <div class="panel-item-meta">
-          <span>$${parseFloat(p.price||0).toFixed(2)}</span>
-          <span class="panel-item-stock${(p.stock||[]).length===0?' empty':''}">${(p.stock||[]).length} in stock</span>
-          <span style="color:${p.enabled?'var(--green)':'var(--muted2)'};">${p.enabled?'ACTIVE':'HIDDEN'}</span>
-        </div>
-      </div>
-      <div class="panel-actions">
-        <button class="admin-btn admin-btn-secondary" style="font-size:0.55rem;padding:7px 12px;" onclick="openEditPanelModal('${escHtml(p.id)}')">EDIT</button>
-        <button class="admin-btn admin-btn-secondary" style="font-size:0.55rem;padding:7px 12px;" onclick="togglePanel('${escHtml(p.id)}')">${p.enabled?'HIDE':'SHOW'}</button>
-        <button class="admin-btn admin-btn-danger" style="font-size:0.55rem;padding:7px 12px;" onclick="deletePanel('${escHtml(p.id)}')">DELETE</button>
+      <div class="panel-row-price">$${parseFloat(p.price||0).toFixed(2)}</div>
+      <div class="panel-row-actions">
+        <button class="edit-row" onclick="openEditPanelModal('${escHtml(p.id)}')">✎</button>
+        <button class="del-row" onclick="deletePanel('${escHtml(p.id)}')">✕</button>
       </div>
     </div>`).join('');
 }
 
-// ─── PANEL MODAL ─────────────────────────────────────────────────────────────
 function openAddPanelModal() {
   editingPanelId = null;
   document.getElementById('panel-modal-title').textContent = 'ADD PRODUCT';
@@ -1000,61 +1047,54 @@ function openAddPanelModal() {
   document.getElementById('p-desc').value = '';
   document.getElementById('p-badge').value = '';
   document.getElementById('p-stripe').value = '';
-  selectedBadgeColor = 'green';
-  document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('selected', s.dataset.color==='green'));
+  document.getElementById('features-editor').innerHTML = '';
+  selectBadgeColor('green', document.querySelector('.swatch-green'));
   updateBadgePreview();
-  const fe = document.getElementById('features-editor');
-  fe.innerHTML = '';
-  addFeatureInput('');
-  addFeatureInput('');
-  addFeatureInput('');
   document.getElementById('panel-modal').classList.add('active');
 }
 
 function openEditPanelModal(id) {
-  const p = adminData.panels.find(x => x.id === id);
+  const panels = adminData?.panels||localPanels;
+  const p = panels.find(x => x.id === id);
   if(!p) return;
   editingPanelId = id;
   document.getElementById('panel-modal-title').textContent = 'EDIT PRODUCT';
   document.getElementById('edit-panel-id').value = id;
-  document.getElementById('p-name').value = p.name;
-  document.getElementById('p-price').value = p.price;
-  document.getElementById('p-desc').value = p.description;
-  document.getElementById('p-badge').value = p.badge;
+  document.getElementById('p-name').value = p.name||'';
+  document.getElementById('p-price').value = p.price||'';
+  document.getElementById('p-desc').value = p.description||'';
+  document.getElementById('p-badge').value = p.badge||'';
   document.getElementById('p-stripe').value = p.stripeLink||'';
-  selectedBadgeColor = p.badgeType||'green';
-  document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('selected', s.dataset.color===selectedBadgeColor));
-  updateBadgePreview();
-  const fe = document.getElementById('features-editor');
-  fe.innerHTML = '';
+  document.getElementById('features-editor').innerHTML = '';
   (p.features||[]).forEach(f => addFeatureInput(f));
-  if(!(p.features||[]).length) addFeatureInput('');
+  const color = p.badgeType||'green';
+  const swatch = document.querySelector(`.swatch-${color}`);
+  selectBadgeColor(color, swatch);
+  updateBadgePreview();
   document.getElementById('panel-modal').classList.add('active');
 }
 
 function closePanelModal() {
   document.getElementById('panel-modal').classList.remove('active');
-  editingPanelId = null;
 }
 
 function addFeatureInput(val) {
-  const fe = document.getElementById('features-editor');
+  const editor = document.getElementById('features-editor');
   const row = document.createElement('div');
   row.className = 'feature-input-row';
-  row.innerHTML = `<input class="form-input feat-val" placeholder="Feature description..." value="${escHtml(val)}">
-    <button class="remove-feature-btn" onclick="this.parentElement.remove()">&#10005;</button>`;
-  fe.appendChild(row);
+  row.innerHTML = `<input type="text" value="${escHtml(val)}" placeholder="Feature description..."><button class="feat-del-btn" onclick="this.parentElement.remove()">✕</button>`;
+  editor.appendChild(row);
 }
 
 function selectBadgeColor(color, el) {
   selectedBadgeColor = color;
   document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
-  el.classList.add('selected');
+  if(el) el.classList.add('selected');
   updateBadgePreview();
 }
 
 function updateBadgePreview() {
-  const text = document.getElementById('p-badge').value || 'Badge';
+  const text = document.getElementById('p-badge').value || 'In Stock';
   const prev = document.getElementById('badge-preview-el');
   prev.className = `badge-preview badge-${selectedBadgeColor}`;
   document.getElementById('badge-preview-text').textContent = text;
@@ -1063,197 +1103,194 @@ function updateBadgePreview() {
 async function submitPanel() {
   const name = document.getElementById('p-name').value.trim();
   const price = document.getElementById('p-price').value;
-  const desc = document.getElementById('p-desc').value.trim();
-  const badge = document.getElementById('p-badge').value.trim() || name;
-  const stripe = document.getElementById('p-stripe').value.trim();
-  const features = [...document.querySelectorAll('.feat-val')].map(i=>i.value.trim()).filter(Boolean);
+  if(!name || !price) { showToast('Name and price required', 'error'); return; }
+  const features = Array.from(document.querySelectorAll('#features-editor .feature-input-row input')).map(i => i.value.trim()).filter(Boolean);
+  const body = {
+    name,
+    price: parseFloat(price),
+    description: document.getElementById('p-desc').value.trim(),
+    badge: document.getElementById('p-badge').value.trim() || name,
+    badgeType: selectedBadgeColor,
+    stripeLink: document.getElementById('p-stripe').value.trim(),
+    features
+  };
 
-  if(!name) { showToast('Product name required', 'error'); return; }
-
-  const body = { name, price: parseFloat(price)||0, description: desc, badge, badgeType: selectedBadgeColor, stripeLink: stripe, features };
-
-  try {
-    if(editingPanelId) {
-      await apiFetch(`/api/admin/panels/${editingPanelId}`, { method:'PUT', body: JSON.stringify(body) });
-      showToast('Product updated', 'success');
-    } else {
-      await apiFetch('/api/admin/panels', { method:'POST', body: JSON.stringify(body) });
-      showToast('Product added', 'success');
-    }
-    closePanelModal();
-    await loadAdminData();
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to save product', 'error');
+  if(editingPanelId) {
+    // Edit existing
+    const idx = localPanels.findIndex(p => p.id === editingPanelId);
+    if(idx !== -1) { localPanels[idx] = {...localPanels[idx], ...body}; }
+  } else {
+    // Add new
+    localPanels.push({...body, id: 'panel_' + Date.now(), stockCount:0});
   }
+  saveLocal();
+
+  if(serverOnline) {
+    try {
+      const endpoint = editingPanelId ? `/api/admin/panels/${editingPanelId}` : '/api/admin/panels';
+      const method = editingPanelId ? 'PUT' : 'POST';
+      await apiFetch(endpoint, { method, body: JSON.stringify(body) });
+    } catch(e) {}
+  }
+
+  closePanelModal();
+  showToast(editingPanelId ? 'Product updated' : 'Product added', 'success');
+  await loadAdminData();
+  renderPanelList();
+  loadPublicPanels();
 }
 
 async function deletePanel(id) {
-  if(!confirm('Delete this product? Stock will be lost.')) return;
-  try {
-    await apiFetch(`/api/admin/panels/${id}`, { method:'DELETE' });
-    showToast('Product deleted', 'success');
-    await loadAdminData();
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to delete', 'error');
+  if(!confirm('Delete this product?')) return;
+  localPanels = localPanels.filter(p => p.id !== id);
+  delete localStock[id];
+  saveLocal();
+  if(serverOnline) {
+    try { await apiFetch(`/api/admin/panels/${id}`, {method:'DELETE'}); } catch(e){}
   }
-}
-
-async function togglePanel(id) {
-  try {
-    const res = await apiFetch(`/api/admin/panels/${id}/toggle`, { method:'POST' });
-    showToast(`Product ${res.enabled?'shown':'hidden'}`, 'success');
-    await loadAdminData();
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to toggle', 'error');
-  }
+  showToast('Product deleted', 'success');
+  await loadAdminData();
+  renderPanelList();
+  loadPublicPanels();
 }
 
 // ─── STOCK ────────────────────────────────────────────────────────────────────
 function populateStockSelect() {
-  if(!adminData) return;
   const sel = document.getElementById('stock-panel-select');
-  const prev = sel.value;
+  const panels = adminData?.panels||localPanels;
   sel.innerHTML = '<option value="">-- Select Product --</option>' +
-    adminData.panels.map(p => `<option value="${escHtml(p.id)}">${escHtml(p.name)}</option>`).join('');
-  if(prev) { sel.value = prev; if(sel.value) loadStockView(); }
+    panels.map(p => `<option value="${escHtml(p.id)}">${escHtml(p.name)}</option>`).join('');
+  document.getElementById('stock-manager-area').style.display = 'none';
 }
 
-async function loadStockView() {
+function loadStockView() {
   const id = document.getElementById('stock-panel-select').value;
-  const area = document.getElementById('stock-manager-area');
-  if(!id) { area.style.display='none'; return; }
-  area.style.display='block';
-
-  try {
-    const data = await apiFetch(`/api/admin/panels/${id}/stock`);
-    document.getElementById('stock-count-badge').textContent = `${data.count} items`;
-    document.getElementById('stock-input').value = '';
-    document.getElementById('stock-add-feedback').textContent = '';
-
-    const container = document.getElementById('stock-table-container');
-    if(!data.stock.length) {
-      container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#9632;</div><div class="empty-state-text">No stock yet — add some above</div></div>';
-      return;
-    }
-
-    container.innerHTML = `<table class="stock-table">
-      <thead><tr><th>#</th><th>Credential</th><th>Action</th></tr></thead>
-      <tbody>${data.stock.map((item,i)=>`
-        <tr>
-          <td style="color:var(--muted2);width:40px;">${i+1}</td>
-          <td style="font-size:0.7rem;word-break:break-all;">${escHtml(item)}</td>
-          <td style="width:60px;"><button class="del-row" onclick="deleteStockItem('${escHtml(id)}',${i})">&#10005;</button></td>
-        </tr>`).join('')}
-      </tbody></table>`;
-  } catch(e) {
-    showToast('Failed to load stock', 'error');
+  if(!id) { document.getElementById('stock-manager-area').style.display='none'; return; }
+  document.getElementById('stock-manager-area').style.display='block';
+  const stock = localStock[id]||[];
+  document.getElementById('stock-count-badge').textContent = stock.length + ' items';
+  const container = document.getElementById('stock-table-container');
+  if(!stock.length) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No stock yet</div></div>';
+    return;
   }
+  container.innerHTML = `<table class="stock-table">
+    <thead><tr><th>#</th><th>Credential</th><th></th></tr></thead>
+    <tbody>${stock.map((item,i) => `
+      <tr>
+        <td style="color:var(--muted2);">${i+1}</td>
+        <td>${escHtml(item)}</td>
+        <td><button class="del-row" onclick="deleteStockItem('${escHtml(id)}',${i})">✕</button></td>
+      </tr>`).join('')}
+    </tbody></table>`;
 }
 
 async function submitStock() {
   const id = document.getElementById('stock-panel-select').value;
-  if(!id) { showToast('Select a product first', 'error'); return; }
-  const lines = document.getElementById('stock-input').value;
-  if(!lines.trim()) { showToast('No lines to add', 'error'); return; }
+  if(!id) return;
+  const raw = document.getElementById('stock-input').value.trim();
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  if(!lines.length) { showToast('No lines to add', 'error'); return; }
+  if(!localStock[id]) localStock[id] = [];
+  localStock[id].push(...lines);
+  // Update panel stockCount
+  const idx = localPanels.findIndex(p => p.id === id);
+  if(idx !== -1) localPanels[idx].stockCount = localStock[id].length;
+  saveLocal();
 
-  try {
-    const res = await apiFetch(`/api/admin/panels/${id}/stock`, {
-      method:'POST',
-      body: JSON.stringify({ lines })
-    });
-    document.getElementById('stock-add-feedback').textContent = `+ ${res.added} added (${res.total} total)`;
-    showToast(`Added ${res.added} items`, 'success');
-    loadStockView();
-    loadAdminData();
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to add stock', 'error');
+  if(serverOnline) {
+    try { await apiFetch(`/api/admin/panels/${id}/stock`, {method:'POST', body:JSON.stringify({lines})}); } catch(e){}
   }
+
+  document.getElementById('stock-input').value = '';
+  document.getElementById('stock-add-feedback').textContent = `+ ${lines.length} added`;
+  setTimeout(() => document.getElementById('stock-add-feedback').textContent = '', 2000);
+  showToast(`Added ${lines.length} item(s)`, 'success');
+  loadStockView();
+  await loadAdminData();
+  loadPublicPanels();
 }
 
-async function deleteStockItem(panelId, idx) {
-  if(!confirm('Remove this item from stock?')) return;
-  try {
-    await apiFetch(`/api/admin/panels/${panelId}/stock/${idx}`, { method:'DELETE' });
-    showToast('Item removed', 'success');
-    loadStockView();
-    loadAdminData();
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to remove', 'error');
-  }
+function deleteStockItem(id, idx) {
+  if(!confirm('Remove this item?')) return;
+  if(localStock[id]) localStock[id].splice(idx, 1);
+  const pi = localPanels.findIndex(p => p.id === id);
+  if(pi !== -1) localPanels[pi].stockCount = (localStock[id]||[]).length;
+  saveLocal();
+  showToast('Item removed', 'success');
+  loadStockView();
+  loadAdminData();
+  loadPublicPanels();
 }
 
-async function clearStock() {
+function clearStock() {
   const id = document.getElementById('stock-panel-select').value;
   if(!id) return;
   if(!confirm('Clear ALL stock for this product?')) return;
-  try {
-    await apiFetch(`/api/admin/panels/${id}/stock`, { method:'DELETE' });
-    showToast('Stock cleared', 'success');
-    loadStockView();
-    loadAdminData();
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to clear stock', 'error');
-  }
+  localStock[id] = [];
+  const pi = localPanels.findIndex(p => p.id === id);
+  if(pi !== -1) localPanels[pi].stockCount = 0;
+  saveLocal();
+  showToast('Stock cleared', 'success');
+  loadStockView();
+  loadAdminData();
+  loadPublicPanels();
 }
 
-// ─── ORDERS ──────────────────────────────────────────────────────────────────
+// ─── ORDERS ───────────────────────────────────────────────────────────────────
 function renderOrders() {
   if(!adminData) return;
-  const orders = [...(adminData.orders||[])].reverse();
+  const orders = [...(adminData.orders||localOrders)].reverse();
   const container = document.getElementById('orders-table-container');
   if(!orders.length) {
-    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#9632;</div><div class="empty-state-text">No orders yet</div></div>';
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">◼</div><div class="empty-state-text">No orders yet</div></div>';
     return;
   }
   container.innerHTML = `<table class="orders-table">
     <thead><tr><th>ID</th><th>Product</th><th>Email</th><th>Credential</th><th>Amount</th><th>Time</th><th></th></tr></thead>
     <tbody>${orders.map(o=>`
       <tr>
-        <td class="order-id">${escHtml((o.id||'').slice(-8))}</td>
+        <td class="order-id">#${escHtml((o.id||'').slice(-6))}</td>
         <td>${escHtml(o.panelName||o.panelId||'?')}</td>
         <td>${escHtml(o.email||'—')}</td>
         <td class="order-cred" title="${escHtml(o.credential||'')}">${escHtml(o.credential||'—')}</td>
         <td style="color:var(--green);">$${parseFloat(o.amount||0).toFixed(2)}</td>
-        <td style="color:var(--muted2);font-size:0.6rem;">${new Date(o.timestamp).toLocaleString()}</td>
-        <td><button class="del-row" onclick="deleteOrder('${escHtml(o.id)}')">&#10005;</button></td>
+        <td style="color:var(--muted2);font-size:0.58rem;">${new Date(o.timestamp||Date.now()).toLocaleString()}</td>
+        <td><button class="del-row" onclick="deleteOrder('${escHtml(o.id)}')">✕</button></td>
       </tr>`).join('')}
     </tbody></table>`;
 }
 
 async function deleteOrder(id) {
-  if(!confirm('Delete this order record?')) return;
-  try {
-    await apiFetch(`/api/admin/orders/${id}`, { method:'DELETE' });
-    showToast('Order deleted', 'success');
-    loadAdminData();
-  } catch(e) {
-    showToast('Failed to delete order', 'error');
+  if(!confirm('Delete this order?')) return;
+  localOrders = localOrders.filter(o => o.id !== id);
+  saveLocal();
+  if(serverOnline) {
+    try { await apiFetch(`/api/admin/orders/${id}`, {method:'DELETE'}); } catch(e){}
   }
+  showToast('Order deleted', 'success');
+  await loadAdminData();
+  renderOrders();
 }
 
 async function clearAllOrders() {
-  if(!adminData) return;
-  try {
-    for(const o of adminData.orders) {
-      await apiFetch(`/api/admin/orders/${o.id}`, { method:'DELETE' });
-    }
-    showToast('All orders cleared', 'success');
-    loadAdminData();
-  } catch(e) {
-    showToast('Failed to clear orders', 'error');
+  localOrders = [];
+  saveLocal();
+  if(serverOnline) {
+    try {
+      for(const o of (adminData?.orders||[])) {
+        await apiFetch(`/api/admin/orders/${o.id}`, {method:'DELETE'});
+      }
+    } catch(e){}
   }
+  showToast('All orders cleared', 'success');
+  await loadAdminData();
+  renderOrders();
 }
 
-// ─── SETTINGS ────────────────────────────────────────────────────────────────
+// ─── SETTINGS ─────────────────────────────────────────────────────────────────
 function populateSettings() {
-  if(!adminData?.settings) return;
-  const s = adminData.settings;
+  const s = adminData?.settings || localSettings;
   document.getElementById('s-siteName').value = s.siteName||'';
   document.getElementById('s-tagline').value = s.siteTagline||'';
   document.getElementById('s-discord').value = s.discordLink||'';
@@ -1275,18 +1312,17 @@ async function saveSettings() {
     emailPass: document.getElementById('s-emailPass').value,
     emailFrom: document.getElementById('s-emailFrom').value.trim()
   };
-  try {
-    await apiFetch('/api/admin/settings', { method:'POST', body: JSON.stringify(body) });
-    showToast('Settings saved', 'success');
-    loadPublicPanels();
-  } catch(e) {
-    showToast('Failed to save settings', 'error');
+  localSettings = body;
+  saveLocal();
+  if(serverOnline) {
+    try { await apiFetch('/api/admin/settings', {method:'POST', body:JSON.stringify(body)}); } catch(e){}
   }
+  applySettings(body);
+  showToast('Settings saved', 'success');
 }
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
+// ─── INIT ─────────────────────────────────────────────────────────────────────
 loadPublicPanels();
-// Auto-refresh stock every 30s
 setInterval(loadPublicPanels, 30000);
 </script>
 </body>
