@@ -1,0 +1,20 @@
+<script>
+async function loadAccount() {
+  const res = await fetch("https://YOUR-NGROK-URL/get-account", {
+    method: "POST"
+  });
+
+  const data = await res.json();
+
+  if (data.account) {
+    document.body.innerHTML = `
+      <h2>Your Account</h2>
+      <p>${data.account}</p>
+    `;
+  } else {
+    document.body.innerHTML = "There was an error! Please contact benjifranklen13 or make a ticket on discord! https://discord.gg/bndvm2Bpzr";
+  }
+}
+
+loadAccount();
+</script>
